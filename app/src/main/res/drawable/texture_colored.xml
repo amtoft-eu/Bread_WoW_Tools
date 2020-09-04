@@ -2,5 +2,5 @@
 <bitmap
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:src="@drawable/texture1"
-    android:tint="@color/allianceBlue"
+    android:tint="?attr/colorMain"
     android:tintMode="multiply"/>

@@ -9,4 +9,8 @@
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
 
+    <attr name="colorMain" format="reference"/>
+    <attr name="colorUnfocused" format="reference"/>
+    <attr name="colorFocused" format="reference" />
+
 </resources>

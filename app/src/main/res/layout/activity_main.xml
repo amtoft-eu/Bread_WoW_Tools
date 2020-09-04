@@ -38,9 +38,9 @@
             android:layout_height="50dp"
             android:layout_margin="8dp"
             app:labelVisibilityMode="unlabeled"
-            app:itemIconTint="@drawable/bottom_navigation_selector"
+            app:itemIconTint="@drawable/bottom_nav_selector"
             android:elevation="8dp"
-            android:background="@drawable/bottom_navigation_view"
+            android:background="@drawable/bottom_nav"
             app:menu="@menu/bottom_navigation_menu"
             app:layout_constraintBottom_toBottomOf="parent"
             />

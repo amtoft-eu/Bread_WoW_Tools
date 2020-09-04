@@ -19,7 +19,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/texture_alliance"
+            android:src="@drawable/texture_colored"
             android:alpha="0.9"
             android:scaleType="fitXY"
             />
