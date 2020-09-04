@@ -10,13 +10,13 @@ import kotlinx.android.synthetic.main.mount_item.view.*
 class MountAdapter(private val mounts: ArrayList<Mount>) : Adapter<MountAdapter.MountHolder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MountAdapter.MountHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MountHolder {
         val inflatedView = parent.inflate(R.layout.mount_item, false)
         return MountHolder(inflatedView)
 
     }
 
-    override fun onBindViewHolder(holder: MountAdapter.MountHolder, position: Int) {
+    override fun onBindViewHolder(holder: MountHolder, position: Int) {
         val item = mounts[position]
         holder.bindMount(item)
     }
@@ -39,6 +39,9 @@ class MountAdapter(private val mounts: ArrayList<Mount>) : Adapter<MountAdapter.
             this.mount = mount
             view.mount_text.text = mount.name
             view.mount_image.setImageResource(mount.icon)
+            view.location.text = mount.location
+            view.droprate.text = "~%.1f %%".format(mount.droprate)
+
         }
 
         companion object {

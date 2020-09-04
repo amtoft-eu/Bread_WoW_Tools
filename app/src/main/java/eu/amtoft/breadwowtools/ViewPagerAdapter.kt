@@ -10,9 +10,12 @@ class ViewPagerAdapter(activity: AppCompatActivity, private val itemCount: Int):
     }
 
     override fun createFragment(position: Int): Fragment {
-        if (position == 0 || position == 1 || position == 2){
+        return when (position) {
+            0 -> CharacterFragment.newInstance()
+            1 -> MountFragment.newInstance()
+            2 -> SettingsFragment.newInstance()
+            else -> CharacterFragment.newInstance()
         }
-        return MountFragment.newInstance()
 
     }
 

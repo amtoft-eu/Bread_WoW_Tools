@@ -32,10 +32,42 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textColor="#000000"
+            android:text="@string/dummy_content"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="100dp"
             android:layout_marginEnd="22dp"
             app:layout_constraintStart_toEndOf="@id/mount_image"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/location"
+            />
+
+        <TextView
+            android:id="@+id/droprate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textAlignment="viewEnd"
+            android:textColor="#000000"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="22dp"
+            android:text="~0.1 %"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/location"
+            app:layout_constraintBottom_toBottomOf="@id/location"
+            />
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="#000000"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/dummy_content"
+            app:layout_constraintStart_toEndOf="@id/mount_image"
+            app:layout_constraintTop_toBottomOf="@id/mount_text"
             app:layout_constraintBottom_toBottomOf="parent"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
