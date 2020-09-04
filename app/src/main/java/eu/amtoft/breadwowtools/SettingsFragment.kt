@@ -1,16 +1,18 @@
 package eu.amtoft.breadwowtools
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.fragment_settings.view.*
+import java.lang.reflect.Method
 
 
 class SettingsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,12 +20,36 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    private var PRIVATE_MODE = 0
+    private val PREF_NAME = "THEME"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         val rootView = inflater.inflate(R.layout.fragment_settings, container, false)
+
+        val sharedPref: SharedPreferences = activity!!.getSharedPreferences(PREF_NAME, PRIVATE_MODE)
+
+        rootView.themeSwitch.isChecked = sharedPref.getBoolean(PREF_NAME, false)
+
+        rootView.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
+
+            if (sharedPref.getBoolean(PREF_NAME, false) != isChecked) {
+
+                val editor = sharedPref.edit()
+
+                if (isChecked) {
+                    activity!!.setTheme(R.style.HordeTheme)
+                } else {
+                    activity!!.setTheme(R.style.AllianceTheme)
+                }
+                editor.putBoolean(PREF_NAME, isChecked)
+                editor.apply()
+                activity?.recreate()
+            }
+        }
 
         return rootView
     }
@@ -36,4 +62,6 @@ class SettingsFragment : Fragment() {
                 }
             }
     }
+
+
 }

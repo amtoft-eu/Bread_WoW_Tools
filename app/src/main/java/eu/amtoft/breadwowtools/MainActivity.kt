@@ -1,7 +1,9 @@
 package eu.amtoft.breadwowtools
 
 import android.app.Activity
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
@@ -10,10 +12,27 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private var PRIVATE_MODE = 0
+    private val PREF_NAME = "THEME"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val sharedPref: SharedPreferences = getSharedPreferences(PREF_NAME, PRIVATE_MODE)
+
+        if (sharedPref.getBoolean(PREF_NAME, false)) {
+            setTheme(R.style.HordeTheme)
+        } else {
+            setTheme(R.style.AllianceTheme)
+            val editor = sharedPref.edit()
+            editor.putBoolean(PREF_NAME, false)
+            editor.apply()
+            Log.d("MAIN", "HERE")
+        }
+//
+
         setContentView(R.layout.activity_main)
+
 
         val viewPagerAdapter: ViewPagerAdapter = ViewPagerAdapter(this, 3)
 

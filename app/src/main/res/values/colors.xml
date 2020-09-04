@@ -10,4 +10,7 @@
     <color name="hordeFocus">#C33823</color>
     <color name="hordeUnfocus">#4C0102</color>
     <color name="black_overlay">#66000000</color>
+    <color name="gold">#ED9637</color>
+    <color name="gold2">#AF8969</color>
+    <color name="gold3">#FFF6E9</color>
 </resources>
