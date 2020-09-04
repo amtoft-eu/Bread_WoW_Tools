@@ -3,14 +3,18 @@
     <color name="colorPrimary">#E1224266</color>
     <color name="colorPrimaryDark">#001E3E</color>
     <color name="colorAccent">#7A95BF</color>
-    <color name="allianceBlue">#E1224266</color>
+    <color name="allianceBlue">#224266</color>
+    <color name="allianceBlueTP">#4995EA</color>
     <color name="allianceFocus">#90ABD5</color>
     <color name="allianceUnfocus">#567299</color>
-    <color name="hordeRed">#E1980203</color>
+    <color name="hordeRed">#980203</color>
+    <color name="hordeRedTP">#FF6F70</color>
     <color name="hordeFocus">#C33823</color>
     <color name="hordeUnfocus">#4C0102</color>
     <color name="black_overlay">#66000000</color>
     <color name="gold">#ED9637</color>
     <color name="gold2">#AF8969</color>
-    <color name="gold3">#FFF6E9</color>
+    <color name="gold3">#FFDDAD</color>
+    <color name="text_shadow">#7F000000</color>
+    <color name="text_shadow_white">#FFFFFF</color>
 </resources>

@@ -25,12 +25,21 @@ class MountFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_mount, container, false)
 
-        val mountRecycler = rootView.findViewById(R.id.mount_recycler) as RecyclerView
+        val mountRecycler = rootView.findViewById(R.id.mountRecycler) as RecyclerView
         linearLayoutManager = LinearLayoutManager(context)
 
         mountRecycler.layoutManager = linearLayoutManager
 
         var mountList: ArrayList<Mount> = ArrayList()
+        mountList.add(Mount())
+        mountList.add(Mount())
+        mountList.add(Mount())
+        mountList.add(Mount())
+        mountList.add(Mount())
+        mountList.add(Mount())
+        mountList.add(Mount())
+        mountList.add(Mount())
+        mountList.add(Mount())
         mountList.add(Mount())
         mountList.add(Mount())
         mountList.add(Mount())

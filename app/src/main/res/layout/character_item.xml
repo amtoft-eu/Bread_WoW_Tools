@@ -17,7 +17,7 @@
 
 
         <ImageView
-            android:id="@+id/mountImage"
+            android:id="@+id/characterImage"
             android:layout_width="64dp"
             android:layout_height="64dp"
             app:srcCompat="@drawable/swift_white_hawkstrider"
@@ -27,7 +27,7 @@
             android:layout_marginStart="0dp"/>
 
         <TextView
-            android:id="@+id/mountName"
+            android:id="@+id/characterName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -36,13 +36,13 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="74dp"
             android:layout_marginEnd="22dp"
-            app:layout_constraintStart_toEndOf="@id/mountImage"
+            app:layout_constraintStart_toEndOf="@id/characterImage"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/mountLocation"
+            app:layout_constraintBottom_toTopOf="@id/characterGuild"
             />
 
         <TextView
-            android:id="@+id/mountDroprate"
+            android:id="@+id/characterLevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="13sp"
@@ -52,12 +52,12 @@
             android:layout_marginEnd="22dp"
             android:text="~0.1 %"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/mountLocation"
-            app:layout_constraintBottom_toBottomOf="@id/mountLocation"
+            app:layout_constraintTop_toTopOf="@id/characterGuild"
+            app:layout_constraintBottom_toBottomOf="@id/characterGuild"
             />
 
         <TextView
-            android:id="@+id/mountLocation"
+            android:id="@+id/characterGuild"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="13sp"
@@ -66,8 +66,8 @@
             android:layout_marginEnd="22dp"
             android:layout_marginBottom="10dp"
             android:text="@string/dummy_content"
-            app:layout_constraintStart_toEndOf="@id/mountImage"
-            app:layout_constraintTop_toBottomOf="@id/mountName"
+            app:layout_constraintStart_toEndOf="@id/characterImage"
+            app:layout_constraintTop_toBottomOf="@id/characterName"
             app:layout_constraintBottom_toBottomOf="parent"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>

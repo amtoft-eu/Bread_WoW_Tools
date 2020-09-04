@@ -37,10 +37,10 @@ class MountAdapter(private val mounts: ArrayList<Mount>) : Adapter<MountAdapter.
 
         fun bindMount(mount: Mount) {
             this.mount = mount
-            view.mount_text.text = mount.name
-            view.mount_image.setImageResource(mount.icon)
-            view.location.text = mount.location
-            view.droprate.text = "~%.1f %%".format(mount.droprate)
+            view.mountName.text = mount.name
+            view.mountImage.setImageResource(mount.icon)
+            view.mountLocation.text = mount.location
+            view.mountDroprate.text = "~%.1f %%".format(mount.droprate)
 
         }
 

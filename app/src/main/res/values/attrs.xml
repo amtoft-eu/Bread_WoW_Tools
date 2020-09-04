@@ -12,5 +12,6 @@
     <attr name="colorMain" format="reference"/>
     <attr name="colorUnfocused" format="reference"/>
     <attr name="colorFocused" format="reference" />
+    <attr name="colorMainTP" format="reference" />
 
 </resources>

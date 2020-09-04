@@ -20,9 +20,9 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.9"
+            android:alpha="0.2"
             android:scaleType="fitXY"
-            android:src="@drawable/texture_colored"
+            android:src="@drawable/texture1"
             tools:ignore="ContentDescription" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,15 +30,40 @@
             android:layout_height="match_parent">
 
 
+            <TextView
+                android:id="@+id/themeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="THEME"
+                android:textColor="@color/gold"
+                android:textSize="20sp"
+                android:shadowColor="@color/text_shadow"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="3"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <ImageView
+                android:id="@+id/dividerTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/divider"
+                app:layout_constraintTop_toBottomOf="@id/themeText"
+                android:layout_marginTop="5dp"
+                />
+
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/themeSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="176dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
                 android:theme="@style/ElementTheme"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/dividerTheme" />
 
             <ImageView
                 android:id="@+id/imageHorde"
@@ -46,15 +71,22 @@
                 android:layout_height="50dp"
                 android:src="@drawable/horde"
                 tools:layout_editor_absoluteX="329dp"
-                tools:layout_editor_absoluteY="12dp" />
+                tools:layout_editor_absoluteY="12dp"
+                app:layout_constraintStart_toEndOf="@id/themeSwitch"
+                app:layout_constraintTop_toTopOf="@id/themeSwitch"
+                app:layout_constraintBottom_toBottomOf="@id/themeSwitch"
+                android:layout_marginStart="10dp"/>
 
             <ImageView
                 android:id="@+id/imageAlliance"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/alliance"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="12dp" />
+                app:layout_constraintEnd_toStartOf="@id/themeSwitch"
+                app:layout_constraintTop_toTopOf="@id/themeSwitch"
+                app:layout_constraintBottom_toBottomOf="@id/themeSwitch"
+                android:layout_marginEnd="10dp"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

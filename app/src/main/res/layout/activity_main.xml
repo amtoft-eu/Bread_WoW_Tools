@@ -15,9 +15,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:alpha=".5"
-        android:tint="#60224266"
-        android:src="@drawable/texture1" />
+        android:alpha="1"
+        android:src="@drawable/texture_colored" />
 
 
     <LinearLayout

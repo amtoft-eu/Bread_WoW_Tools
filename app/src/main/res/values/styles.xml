@@ -8,7 +8,8 @@
         <item name="colorMain">@color/allianceBlue</item>
         <item name="colorFocused">@color/allianceFocus</item>
         <item name="colorUnfocused">@color/allianceUnfocus</item>
-
+        <item name="colorMainTP">@color/allianceBlueTP</item>
+        <item name="fontFamily">@font/morpheus_family</item>
     </style>
 
     <style name="HordeTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -19,6 +20,8 @@
         <item name="colorMain">@color/hordeRed</item>
         <item name="colorFocused">@color/hordeFocus</item>
         <item name="colorUnfocused">@color/hordeUnfocus</item>
+        <item name="colorMainTP">@color/hordeRedTP</item>
+        <item name="fontFamily">@font/morpheus_family</item>
     </style>
 
     <style name="ElementTheme" parent="Theme.AppCompat.Light">
