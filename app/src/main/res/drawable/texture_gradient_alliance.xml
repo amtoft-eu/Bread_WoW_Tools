@@ -7,7 +7,7 @@
                 android:startColor="@color/allianceBlue"
                 android:centerColor="@color/allianceBlue"
                 android:type="linear"
-                android:angle="0"/>
+                android:angle="45"/>
         </shape>
     </item>
     <item>
