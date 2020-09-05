@@ -1,9 +1,9 @@
 package eu.amtoft.breadwowtools
 
 class Character {
-    val name: String = "Amtoft"
-    val level: Int = 60
-    val guild: String = "Bread"
-    val faction: Faction = Faction.UNKNOWN
-    val icon = R.drawable.swift_white_hawkstrider
+    var name: String = "Amtoft"
+    var level: Int = 60
+    var guild: String = "Bread"
+    var faction: Faction = Faction.UNKNOWN
+    var icon = R.drawable.swift_white_hawkstrider
 }

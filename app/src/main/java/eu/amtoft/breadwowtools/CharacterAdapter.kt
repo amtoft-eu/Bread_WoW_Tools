@@ -42,6 +42,12 @@ class CharacterAdapter(private val characters: ArrayList<Character>) : Adapter<C
             view.characterGuild.text = character.guild
             view.characterLevel.text = character.level.toString()
 
+            when (character.faction){
+                Faction.ALLIANCE -> view.characterBackground.setImageResource(R.drawable.texture_gradient_alliance)
+                Faction.HORDE -> view.characterBackground.setImageResource(R.drawable.texture_gradient_horde)
+                else -> view.characterBackground.setImageResource(R.drawable.texture2)
+            }
+
         }
 
         companion object {

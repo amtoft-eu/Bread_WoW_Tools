@@ -9,7 +9,14 @@
     android:layout_marginVertical="4dp"
     app:cardCornerRadius="17dp"
     android:elevation="8dp">
-
+    <ImageView
+        android:id="@+id/characterBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/texture_gradient_horde"
+        android:alpha="0.8"
+        tools:ignore="ContentDescription" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -31,8 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:textColor="#000000"
-            android:text="@string/dummy_content"
+            android:textColor="@color/gold"
             android:layout_marginTop="10dp"
             android:layout_marginStart="74dp"
             android:layout_marginEnd="22dp"
@@ -47,10 +53,9 @@
             android:layout_height="wrap_content"
             android:textSize="13sp"
             android:textAlignment="viewEnd"
-            android:textColor="#000000"
+            android:textColor="@color/gold"
             android:layout_marginStart="74dp"
             android:layout_marginEnd="22dp"
-            android:text="~0.1 %"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/characterGuild"
             app:layout_constraintBottom_toBottomOf="@id/characterGuild"
@@ -61,11 +66,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="13sp"
-            android:textColor="#000000"
+            android:textColor="@color/gold"
             android:layout_marginStart="74dp"
             android:layout_marginEnd="22dp"
             android:layout_marginBottom="10dp"
-            android:text="@string/dummy_content"
             app:layout_constraintStart_toEndOf="@id/characterImage"
             app:layout_constraintTop_toBottomOf="@id/characterName"
             app:layout_constraintBottom_toBottomOf="parent"
