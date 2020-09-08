@@ -17,4 +17,13 @@
     <color name="gold3">#FFDDAD</color>
     <color name="text_shadow">#7F000000</color>
     <color name="text_shadow_white">#FFFFFF</color>
+    <color name="vanilla">#4b5a77</color>
+    <color name="tbc">#748743</color>
+    <color name="wotlk">#2f80c6</color>
+    <color name="cata">#bf351a</color>
+    <color name="mop">#019674</color>
+    <color name="wod">#622500</color>
+    <color name="legion">#47710d</color>
+    <color name="bfa">#1a283e</color>
+    <color name="sl">#b5b5b8</color>
 </resources>
