@@ -30,25 +30,46 @@ class MountFragment : Fragment() {
 
         mountRecycler.layoutManager = linearLayoutManager
 
+
+        var vanillaPH = Mount()
+        vanillaPH.expansion = Expansion.VANNILA
+        var tbcPH = Mount()
+        tbcPH.expansion = Expansion.TBC
+        var wotlkPH = Mount()
+        wotlkPH.expansion = Expansion.WOTLK
+        var cataPH = Mount()
+        cataPH.expansion = Expansion.CATA
+        var mopPH = Mount()
+        mopPH.expansion = Expansion.MOP
+        var wodPH = Mount()
+        wodPH.expansion = Expansion.WOD
+        var legionPH = Mount()
+        legionPH.expansion = Expansion.LEGION
+        var bfaPH = Mount()
+        bfaPH.expansion = Expansion.BFA
+        var slPH = Mount()
+        slPH.expansion = Expansion.SL
+
         var mountList: ArrayList<Mount> = ArrayList()
-        mountList.add(Mount())
-        mountList.add(Mount())
-        mountList.add(Mount())
-        mountList.add(Mount())
-        mountList.add(Mount())
-        mountList.add(Mount())
-        mountList.add(Mount())
-        mountList.add(Mount())
-        mountList.add(Mount())
-        mountList.add(Mount())
-        mountList.add(Mount())
-        mountList.add(Mount())
-        mountList.add(Mount())
-        mountList.add(Mount())
-        mountList.add(Mount())
-        mountList.add(Mount())
-        mountList.add(Mount())
-        mountList.add(Mount())
+        mountList.add(vanillaPH)
+        mountList.add(tbcPH)
+        mountList.add(wotlkPH)
+        mountList.add(cataPH)
+        mountList.add(mopPH)
+        mountList.add(wodPH)
+        mountList.add(legionPH)
+        mountList.add(bfaPH)
+        mountList.add(slPH)
+        mountList.add(vanillaPH)
+        mountList.add(tbcPH)
+        mountList.add(wotlkPH)
+        mountList.add(cataPH)
+        mountList.add(mopPH)
+        mountList.add(wodPH)
+        mountList.add(legionPH)
+        mountList.add(bfaPH)
+        mountList.add(slPH)
+
 
         adapter = MountAdapter(mountList)
         mountRecycler.adapter = adapter

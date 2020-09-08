@@ -15,7 +15,7 @@
     <color name="gold">#ED9637</color>
     <color name="gold2">#AF8969</color>
     <color name="gold3">#FFDDAD</color>
-    <color name="text_shadow">#7F000000</color>
+    <color name="text_shadow">#FF000000</color>
     <color name="text_shadow_white">#FFFFFF</color>
     <color name="vanilla">#4b5a77</color>
     <color name="tbc">#748743</color>

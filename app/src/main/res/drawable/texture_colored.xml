@@ -3,4 +3,5 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:src="@drawable/texture1"
     android:tint="?attr/colorMain"
-    android:tintMode="multiply"/>
+    android:tintMode="multiply"
+    android:alpha="1"/>

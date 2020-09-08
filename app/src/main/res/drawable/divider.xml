@@ -5,7 +5,7 @@
         android:angle="0"
         android:type="linear"
         android:endColor="#00FFFFFF"
-        android:centerColor="@color/gold"
+        android:centerColor="#FFFFFF"
         android:startColor="#00FFFFFF"/>
     <size
         android:height="2dp"/>

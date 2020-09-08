@@ -1,74 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="64dp"
+    android:layout_height="wrap_content"
     android:layout_marginHorizontal="8dp"
     android:layout_marginVertical="4dp"
+    android:elevation="15dp"
     app:cardCornerRadius="17dp"
-    android:elevation="8dp">
+    app:cardElevation="15dp"
+    android:animateLayoutChanges="true">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:animateLayoutChanges="true">
 
 
-        <ImageView
-            android:id="@+id/mountImage"
-            android:layout_width="64dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mountBackground"
+            android:layout_width="match_parent"
             android:layout_height="64dp"
-            app:srcCompat="@drawable/swift_white_hawkstrider"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="0dp"/>
+            android:background="@drawable/texture_gradient_01_vanilla">
 
-        <TextView
-            android:id="@+id/mountName"
+
+            <ImageView
+                android:id="@+id/mountImage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/swift_white_hawkstrider" />
+
+            <TextView
+                android:id="@+id/mountName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:shadowColor="@color/text_shadow"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
+                android:textColor="@color/gold"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@id/mountLocation"
+                app:layout_constraintStart_toEndOf="@id/mountImage"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/mountDroprate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="22dp"
+                android:shadowColor="@color/text_shadow"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/gold"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/mountLocation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/mountLocation" />
+
+            <TextView
+                android:id="@+id/mountLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginBottom="10dp"
+                android:shadowColor="@color/text_shadow"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
+                android:textColor="@color/gold"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/mountImage"
+                app:layout_constraintTop_toBottomOf="@id/mountName" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@color/gold"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="74dp"
-            android:layout_marginEnd="22dp"
-            app:layout_constraintStart_toEndOf="@id/mountImage"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/mountLocation"
-            />
+            android:id="@+id/sub_item"
+            android:visibility="gone"/>
 
-        <TextView
-            android:id="@+id/mountDroprate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:textAlignment="viewEnd"
-            android:textColor="@color/gold"
-            android:layout_marginStart="74dp"
-            android:layout_marginEnd="22dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/mountLocation"
-            app:layout_constraintBottom_toBottomOf="@id/mountLocation"
-            />
-
-        <TextView
-            android:id="@+id/mountLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:textColor="@color/gold"
-            android:layout_marginStart="74dp"
-            android:layout_marginEnd="22dp"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintStart_toEndOf="@id/mountImage"
-            app:layout_constraintTop_toBottomOf="@id/mountName"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

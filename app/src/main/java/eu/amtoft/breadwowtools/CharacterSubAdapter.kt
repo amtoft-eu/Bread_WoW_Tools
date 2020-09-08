@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import kotlinx.android.synthetic.main.character_item.view.*
 
-class CharacterAdapter(private val characters: ArrayList<Character>) : Adapter<CharacterAdapter.CharacterHolder>() {
+class CharacterSubAdapter(private val characters: ArrayList<Character>) : Adapter<CharacterSubAdapter.CharacterHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterHolder {
-        val inflatedView = parent.inflate(R.layout.character_item, false)
+        val inflatedView = parent.inflate(R.layout.mount_sub_item, false)
         return CharacterHolder(inflatedView)
 
     }
