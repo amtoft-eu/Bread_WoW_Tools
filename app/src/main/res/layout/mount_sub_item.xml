@@ -31,30 +31,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/characterImage"
         app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:id="@+id/characterGuild"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/characterImage"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:id="@+id/characterLevel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/characterImage"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:id="@+id/characterRealm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/characterImage"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:layout_width="wrap_content"

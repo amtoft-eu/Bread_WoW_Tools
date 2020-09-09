@@ -39,9 +39,6 @@ class CharacterSubAdapter(private val characters: ArrayList<Character>) : Adapte
             this.character = character
             view.characterName.text = character.name
             view.characterImage.setImageResource(character.icon)
-            view.characterGuild.text = character.guild
-            view.characterRealm.text = character.realm
-            view.characterLevel.text = character.level.toString()
 
             when (character.faction){
                 Faction.ALLIANCE -> view.characterBackground.setBackgroundResource(R.drawable.texture_gradient_alliance)
