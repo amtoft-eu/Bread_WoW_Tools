@@ -23,6 +23,12 @@ class MountAdapter(private val mounts: ArrayList<Mount>) : Adapter<MountAdapter.
 
     override fun onBindViewHolder(holder: MountHolder, position: Int) {
         val item = mounts[position]
+
+        holder.itemView.setOnClickListener {
+            item.expanded = !item.expanded
+            it.sub_item.visibility = if (item.expanded) VISIBLE else GONE
+            notifyItemChanged(position)
+        }
         holder.bindMount(item)
     }
 
@@ -44,10 +50,13 @@ class MountAdapter(private val mounts: ArrayList<Mount>) : Adapter<MountAdapter.
 
         fun bindMount(mount: Mount) {
             this.mount = mount
+
+            view.sub_item.visibility = if (mount.expanded) VISIBLE else GONE
             view.mountName.text = mount.name
             view.mountImage.setImageResource(mount.icon)
             view.mountLocation.text = mount.location
             view.mountDroprate.text = "~%.1f %%".format(mount.droprate)
+
             when (mount.expansion){
                 Expansion.VANNILA -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_01_vanilla)
                 Expansion.TBC -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_02_tbc)
@@ -60,29 +69,13 @@ class MountAdapter(private val mounts: ArrayList<Mount>) : Adapter<MountAdapter.
                 Expansion.SL -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_09_sl)
                 else -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_01_vanilla)
             }
-            view.setOnClickListener {
-                if (it.sub_item.visibility == VISIBLE) {
-                    it.sub_item.visibility = GONE
-                }
-                else {
-                    it.sub_item.visibility = VISIBLE
-                }
-            }
 
             val characterRecycler = view.findViewById(R.id.sub_item) as RecyclerView
             linearLayoutManager = LinearLayoutManager(view.context)
-
             characterRecycler.layoutManager = linearLayoutManager
-
-            var characterList: ArrayList<Character> = ArrayList()
-            var hordePH = Character()
-            hordePH.faction = Faction.HORDE
-            var alliancePH = Character()
-            alliancePH.faction = Faction.ALLIANCE
-            characterList.add(alliancePH)
-            characterList.add(hordePH)
-            adapter = CharacterSubAdapter(characterList)
+            adapter = CharacterSubAdapter(mount.characterList)
             characterRecycler.adapter = adapter
+
 
         }
 
