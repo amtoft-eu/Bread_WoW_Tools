@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
+    android:elevation="15dp"
+    app:cardCornerRadius="17dp"
+    app:cardElevation="15dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/texture_colored">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add character"
+            android:textColor="@color/gold"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="12dp" />
+
+        <TextView
+            android:id="@+id/nameTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Character name"
+            android:textColor="@color/gold"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="22dp"/>
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textNoSuggestions"
+            android:textSize="18sp"
+            android:textColor="@color/gold"
+            android:focusable="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nameTitle"/>
+
+        <TextView
+            android:id="@+id/regionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pick region"
+            android:textColor="@color/gold"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            android:layout_marginStart="22dp"
+            />
+
+        <Spinner
+            android:id="@+id/spinnerRegion"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/regionTitle"
+            android:layout_marginStart="22dp"/>
+
+        <TextView
+            android:id="@+id/realmTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pick realm"
+            android:textColor="@color/gold"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinnerRegion"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="22dp"/>
+        <Spinner
+            android:id="@+id/spinnerRealm"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/realmTitle"
+            android:layout_marginStart="22dp"/>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

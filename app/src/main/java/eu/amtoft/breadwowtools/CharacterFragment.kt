@@ -30,35 +30,7 @@ class CharacterFragment : Fragment() {
 
         characterRecycler.layoutManager = linearLayoutManager
 
-        var characterList: ArrayList<Character> = ArrayList()
-        var hordePH = Character()
-        hordePH.faction = Faction.HORDE
-        var alliancePH = Character()
-        alliancePH.faction = Faction.ALLIANCE
-        characterList.add(alliancePH)
-        characterList.add(hordePH)
-        characterList.add(alliancePH)
-        characterList.add(hordePH)
-        characterList.add(alliancePH)
-        characterList.add(hordePH)
-        characterList.add(alliancePH)
-        characterList.add(hordePH)
-        characterList.add(alliancePH)
-        characterList.add(hordePH)
-        characterList.add(alliancePH)
-        characterList.add(hordePH)
-        characterList.add(alliancePH)
-        characterList.add(hordePH)
-        characterList.add(alliancePH)
-        characterList.add(hordePH)
-        characterList.add(alliancePH)
-        characterList.add(hordePH)
-        characterList.add(alliancePH)
-        characterList.add(hordePH)
-
-
-
-        adapter = CharacterAdapter(characterList)
+        adapter = CharacterAdapter(CharacterCollection.characters)
         characterRecycler.adapter = adapter
 
         return rootView

@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/swift_white_hawkstrider" />
+        app:srcCompat="@drawable/mount_swift_white_hawkstrider" />
 
     <TextView
         android:id="@+id/characterName"

@@ -6,9 +6,9 @@ class Mount(
     var expansion: Expansion = Expansion.UNKNOWN,
     var location: String = "",
     var droprate: Double = 0.0,
-    var reset: Reset = Reset.UNKNOWN
+    var reset: Reset = Reset.UNKNOWN,
+    var icon: Int = R.drawable.mount_swift_white_hawkstrider
 ) {
-    var icon = R.drawable.swift_white_hawkstrider
     var expanded: Boolean = false
     var characterList: ArrayList<Character> = ArrayList()
 }
