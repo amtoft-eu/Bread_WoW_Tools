@@ -8,4 +8,5 @@ class Character {
     var region: String = "eu"
     var faction: Faction = Faction.UNKNOWN
     var icon = R.drawable.swift_white_hawkstrider
+    var isMain: Boolean = false
 }

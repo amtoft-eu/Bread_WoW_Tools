@@ -76,7 +76,7 @@ class MountAdapter(private val mounts: ArrayList<Mount>) : Adapter<MountAdapter.
             val characterRecycler = view.findViewById(R.id.sub_item) as RecyclerView
             linearLayoutManager = LinearLayoutManager(view.context)
             characterRecycler.layoutManager = linearLayoutManager
-            adapter = CharacterSubAdapter(mount.characterList)
+            adapter = CharacterSubAdapter(CharacterCollection.characters)
             characterRecycler.adapter = adapter
 
 

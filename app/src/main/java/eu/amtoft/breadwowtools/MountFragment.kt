@@ -34,15 +34,6 @@ class MountFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_mount, container, false)
 
-        val sharedPref: SharedPreferences = activity!!.getSharedPreferences(PREF_NAME, PRIVATE_MODE)
-        val charactersJson = sharedPref.getString(PREF_NAME, "")
-        val gson = Gson()
-        var characterCollection: CharacterCollection
-        if (charactersJson == "") {
-            characterCollection = CharacterCollection()
-            characterCollection.characters.add(Character())
-        } else
-            characterCollection = gson.fromJson(charactersJson, CharacterCollection::class.java)
 
 
         val mountRecycler = rootView.findViewById(R.id.mountRecycler) as RecyclerView
@@ -52,31 +43,33 @@ class MountFragment : Fragment() {
 
         val queue = Volley.newRequestQueue(context)
 
-        characterCollection.characters.forEach() {
+        CharacterCollection.characters.forEach() {
             // Instantiate the RequestQueue.
-            var url = "https://" +
-                    it.region +
-                    ".api.blizzard.com/profile/wow/character/" +
-                    it.realm.toLowerCase().replace(" ", "-") +
-                    "/" +
-                    it.name.toLowerCase() +
-                    "/collections/mounts?namespace=profile-" +
-                    it.region +
-                    "&locale=en_GB&access_token=USm37o1MXYHe3u44vwvdOEDZE2zHkuWzHf"
+            if (it.isMain) {
+                var url = "https://" +
+                        it.region +
+                        ".api.blizzard.com/profile/wow/character/" +
+                        it.realm.toLowerCase().replace(" ", "-") +
+                        "/" +
+                        it.name.toLowerCase() +
+                        "/collections/mounts?namespace=profile-" +
+                        it.region +
+                        "&locale=en_GB&access_token=USm37o1MXYHe3u44vwvdOEDZE2zHkuWzHf"
 
-            // Request a string response from the provided URL.
-            val stringRequest = StringRequest(
-                Request.Method.GET, url,
-                { response ->
-                    // Display the first 500 characters of the response string.
-                    convertJson(response, it)
-                },
-                {
-                    Log.v("JSON", "That didn't work!")
-                }
-            )
-            // Add the request to the RequestQueue.
-            queue.add(stringRequest)
+                // Request a string response from the provided URL.
+                val stringRequest = StringRequest(
+                    Request.Method.GET, url,
+                    { response ->
+                        // Display the first 500 characters of the response string.
+                        convertJson(response)
+                    },
+                    {
+                        Log.v("JSON", "That didn't work!")
+                    }
+                )
+                // Add the request to the RequestQueue.
+                queue.add(stringRequest)
+            }
         }
 
         adapter = MountAdapter(ObtainableMounts.unknownMounts)
@@ -90,7 +83,7 @@ class MountFragment : Fragment() {
         fun newInstance() = MountFragment().apply { arguments = Bundle().apply {} }
     }
 
-    fun convertJson(json: String, character: Character) {
+    fun convertJson(json: String) {
         var gson = Gson()
         var mountContainer = gson.fromJson<MountContainer>(json, MountContainer::class.java)
         ObtainableMounts.mounts.forEach() { obtainable ->
@@ -102,7 +95,6 @@ class MountFragment : Fragment() {
                 }
             }
             if (!found) {
-                obtainable.characterList.add(character)
 
                 var foundInUnknown = false
                 ObtainableMounts.unknownMounts.forEach() { unknownMount ->
@@ -110,7 +102,6 @@ class MountFragment : Fragment() {
                         foundInUnknown = true
                     }
                 }
-
                 if (!foundInUnknown){
                     ObtainableMounts.unknownMounts.add(obtainable)
                 }
