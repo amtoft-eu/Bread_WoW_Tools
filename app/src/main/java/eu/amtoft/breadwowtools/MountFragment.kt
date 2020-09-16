@@ -36,7 +36,7 @@ class MountFragment : Fragment() {
         alliancePH.faction = Faction.ALLIANCE
 
         var vanillaPH = Mount()
-        vanillaPH.expansion = Expansion.VANNILA
+        vanillaPH.expansion = Expansion.VANILLA
         vanillaPH.characterList.add(alliancePH)
         vanillaPH.characterList.add(hordePH)
 
@@ -81,7 +81,7 @@ class MountFragment : Fragment() {
         slPH.characterList.add(hordePH)
 
         var vanillaPH2 = Mount()
-        vanillaPH2.expansion = Expansion.VANNILA
+        vanillaPH2.expansion = Expansion.VANILLA
         vanillaPH2.characterList.add(alliancePH)
         vanillaPH2.characterList.add(hordePH)
 

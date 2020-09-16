@@ -55,10 +55,13 @@ class MountAdapter(private val mounts: ArrayList<Mount>) : Adapter<MountAdapter.
             view.mountName.text = mount.name
             view.mountImage.setImageResource(mount.icon)
             view.mountLocation.text = mount.location
-            view.mountDroprate.text = "~%.1f %%".format(mount.droprate)
+            if (mount.droprate != 0.0)
+                view.mountDroprate.text = "~%.1f %%".format(mount.droprate)
+            else
+                view.mountDroprate.text = ""
 
-            when (mount.expansion){
-                Expansion.VANNILA -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_01_vanilla)
+                    when (mount.expansion){
+                Expansion.VANILLA -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_01_vanilla)
                 Expansion.TBC -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_02_tbc)
                 Expansion.WOTLK -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_03_wotlk)
                 Expansion.CATA -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_04_cata)
