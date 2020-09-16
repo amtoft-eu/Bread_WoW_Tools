@@ -38,32 +38,9 @@ class MainActivity : AppCompatActivity() {
             val editor = sharedPref.edit()
             editor.putBoolean(PREF_NAME, false)
             editor.apply()
-            Log.d("MAIN", "HERE")
         }
 
         setContentView(R.layout.activity_main)
-
-        // Instantiate the RequestQueue.
-        val queue = Volley.newRequestQueue(this)
-        val url = "https://eu.api.blizzard.com/profile/wow/character/argent-dawn/amtoft/collections/mounts?namespace=profile-eu&locale=en_GB&access_token=USm37o1MXYHe3u44vwvdOEDZE2zHkuWzHf"
-
-        // Request a string response from the provided URL.
-        val stringRequest = StringRequest(
-            Request.Method.GET, url,
-            { response ->
-                // Display the first 500 characters of the response string.
-                convertJson(response)
-                var output = "Response is: ${response.substring(0, 500)}"
-                Log.v("JSON", output)
-            },
-            {
-                var output = "That didn't work!"
-                Log.v("JSON", output)
-            }
-        )
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest)
 
 
         val viewPagerAdapter: ViewPagerAdapter = ViewPagerAdapter(this, 3)
@@ -103,10 +80,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun convertJson(json: String){
-        var gson: Gson = Gson()
-        var mountContainer = gson.fromJson<MountContainer>(json, MountContainer::class.java)
-        var x = 0
-    }
+
 
 }

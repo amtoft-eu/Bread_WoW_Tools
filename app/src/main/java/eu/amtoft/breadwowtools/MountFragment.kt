@@ -1,17 +1,26 @@
 package eu.amtoft.breadwowtools
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.google.gson.Gson
+import eu.amtoft.breadwowtools.api.MountContainer
 
 class MountFragment : Fragment() {
 
     private lateinit var adapter: MountAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
+    private var PRIVATE_MODE = 0
+    private val PREF_NAME = "CHARACTERS"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,128 +34,52 @@ class MountFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_mount, container, false)
 
+        val sharedPref: SharedPreferences = activity!!.getSharedPreferences(PREF_NAME, PRIVATE_MODE)
+        val charactersJson = sharedPref.getString(PREF_NAME, "")
+        val gson = Gson()
+        var characterCollection: CharacterCollection
+        if (charactersJson == "") {
+            characterCollection = CharacterCollection()
+            characterCollection.characters.add(Character())
+        } else
+            characterCollection = gson.fromJson(charactersJson, CharacterCollection::class.java)
+
+
         val mountRecycler = rootView.findViewById(R.id.mountRecycler) as RecyclerView
         linearLayoutManager = LinearLayoutManager(context)
 
         mountRecycler.layoutManager = linearLayoutManager
 
-        var hordePH = Character()
-        hordePH.faction = Faction.HORDE
-        var alliancePH = Character()
-        alliancePH.faction = Faction.ALLIANCE
+        val queue = Volley.newRequestQueue(context)
 
-        var vanillaPH = Mount()
-        vanillaPH.expansion = Expansion.VANILLA
-        vanillaPH.characterList.add(alliancePH)
-        vanillaPH.characterList.add(hordePH)
+        characterCollection.characters.forEach() {
+            // Instantiate the RequestQueue.
+            var url = "https://" +
+                    it.region +
+                    ".api.blizzard.com/profile/wow/character/" +
+                    it.realm.toLowerCase().replace(" ", "-") +
+                    "/" +
+                    it.name.toLowerCase() +
+                    "/collections/mounts?namespace=profile-" +
+                    it.region +
+                    "&locale=en_GB&access_token=USm37o1MXYHe3u44vwvdOEDZE2zHkuWzHf"
 
-        var tbcPH = Mount()
-        tbcPH.expansion = Expansion.TBC
-        tbcPH.characterList.add(alliancePH)
-        tbcPH.characterList.add(hordePH)
+            // Request a string response from the provided URL.
+            val stringRequest = StringRequest(
+                Request.Method.GET, url,
+                { response ->
+                    // Display the first 500 characters of the response string.
+                    convertJson(response, it)
+                },
+                {
+                    Log.v("JSON", "That didn't work!")
+                }
+            )
+            // Add the request to the RequestQueue.
+            queue.add(stringRequest)
+        }
 
-        var wotlkPH = Mount()
-        wotlkPH.expansion = Expansion.WOTLK
-        wotlkPH.characterList.add(alliancePH)
-        wotlkPH.characterList.add(hordePH)
-
-        var cataPH = Mount()
-        cataPH.expansion = Expansion.CATA
-        cataPH.characterList.add(alliancePH)
-        cataPH.characterList.add(hordePH)
-
-        var mopPH = Mount()
-        mopPH.expansion = Expansion.MOP
-        mopPH.characterList.add(alliancePH)
-        mopPH.characterList.add(hordePH)
-
-        var wodPH = Mount()
-        wodPH.expansion = Expansion.WOD
-        wodPH.characterList.add(alliancePH)
-        wodPH.characterList.add(hordePH)
-
-        var legionPH = Mount()
-        legionPH.expansion = Expansion.LEGION
-        legionPH.characterList.add(alliancePH)
-        legionPH.characterList.add(hordePH)
-
-        var bfaPH = Mount()
-        bfaPH.expansion = Expansion.BFA
-        bfaPH.characterList.add(alliancePH)
-        bfaPH.characterList.add(hordePH)
-
-        var slPH = Mount()
-        slPH.expansion = Expansion.SL
-        slPH.characterList.add(alliancePH)
-        slPH.characterList.add(hordePH)
-
-        var vanillaPH2 = Mount()
-        vanillaPH2.expansion = Expansion.VANILLA
-        vanillaPH2.characterList.add(alliancePH)
-        vanillaPH2.characterList.add(hordePH)
-
-        var tbcPH2 = Mount()
-        tbcPH2.expansion = Expansion.TBC
-        tbcPH2.characterList.add(alliancePH)
-        tbcPH2.characterList.add(hordePH)
-
-        var wotlkPH2 = Mount()
-        wotlkPH2.expansion = Expansion.WOTLK
-        wotlkPH2.characterList.add(alliancePH)
-        wotlkPH2.characterList.add(hordePH)
-
-        var cataPH2 = Mount()
-        cataPH2.expansion = Expansion.CATA
-        cataPH2.characterList.add(alliancePH)
-        cataPH2.characterList.add(hordePH)
-
-        var mopPH2 = Mount()
-        mopPH2.expansion = Expansion.MOP
-        mopPH2.characterList.add(alliancePH)
-        mopPH2.characterList.add(hordePH)
-
-        var wodPH2 = Mount()
-        wodPH2.expansion = Expansion.WOD
-        wodPH2.characterList.add(alliancePH)
-        wodPH2.characterList.add(hordePH)
-
-        var legionPH2 = Mount()
-        legionPH2.expansion = Expansion.LEGION
-        legionPH2.characterList.add(alliancePH)
-        legionPH2.characterList.add(hordePH)
-
-        var bfaPH2 = Mount()
-        bfaPH2.expansion = Expansion.BFA
-        bfaPH2.characterList.add(alliancePH)
-        bfaPH2.characterList.add(hordePH)
-
-        var slPH2 = Mount()
-        slPH2.expansion = Expansion.SL
-        slPH2.characterList.add(alliancePH)
-        slPH2.characterList.add(hordePH)
-
-        var mountList: ArrayList<Mount> = ArrayList()
-        mountList.add(vanillaPH)
-        mountList.add(tbcPH)
-        mountList.add(wotlkPH)
-        mountList.add(cataPH)
-        mountList.add(mopPH)
-        mountList.add(wodPH)
-        mountList.add(legionPH)
-        mountList.add(bfaPH)
-        mountList.add(slPH)
-        mountList.add(vanillaPH2)
-        mountList.add(tbcPH2)
-        mountList.add(wotlkPH2)
-        mountList.add(cataPH2)
-        mountList.add(mopPH2)
-        mountList.add(wodPH2)
-        mountList.add(legionPH2)
-        mountList.add(bfaPH2)
-        mountList.add(slPH2)
-
-
-        adapter = MountAdapter(mountList)
+        adapter = MountAdapter(ObtainableMounts.unknownMounts)
         mountRecycler.adapter = adapter
 
         return rootView
@@ -154,7 +87,37 @@ class MountFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = MountFragment().apply {arguments = Bundle().apply {}}
+        fun newInstance() = MountFragment().apply { arguments = Bundle().apply {} }
+    }
+
+    fun convertJson(json: String, character: Character) {
+        var gson = Gson()
+        var mountContainer = gson.fromJson<MountContainer>(json, MountContainer::class.java)
+        ObtainableMounts.mounts.forEach() { obtainable ->
+            var found = false
+            mountContainer.mounts.forEach() { known ->
+                if (known.mount.id == obtainable.id) {
+                    Log.v("MOUNT", "Found matching ID: " + obtainable.id)
+                    found = true
+                }
+            }
+            if (!found) {
+                obtainable.characterList.add(character)
+
+                var foundInUnknown = false
+                ObtainableMounts.unknownMounts.forEach() { unknownMount ->
+                    if (unknownMount.id == obtainable.id){
+                        foundInUnknown = true
+                    }
+                }
+
+                if (!foundInUnknown){
+                    ObtainableMounts.unknownMounts.add(obtainable)
+                }
+
+            }
+        }
+        adapter.notifyDataSetChanged()
     }
 
 }

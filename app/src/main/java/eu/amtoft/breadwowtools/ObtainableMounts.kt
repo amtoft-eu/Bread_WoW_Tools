@@ -1,7 +1,8 @@
 package eu.amtoft.breadwowtools
 
-class ObtainableMounts() {
+object ObtainableMounts {
     var mounts: ArrayList<Mount> = ArrayList()
+    var unknownMounts: ArrayList<Mount> = ArrayList()
     init {
         mounts.add(Mount(69,   "Rivendare's Deathcharger",        Expansion.VANILLA, "Stratholme",                   1.0,    Reset.WEEKLY))
         mounts.add(Mount(117,  "Blue Qiraji Battle Tank",         Expansion.VANILLA, "Temple of Ahn'Qiraj",          0.0,    Reset.WEEKLY))
