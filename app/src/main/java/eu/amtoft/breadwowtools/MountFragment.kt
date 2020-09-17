@@ -54,7 +54,7 @@ class MountFragment : Fragment() {
                         it.name.toLowerCase() +
                         "/collections/mounts?namespace=profile-" +
                         it.region +
-                        "&locale=en_GB&access_token=USm37o1MXYHe3u44vwvdOEDZE2zHkuWzHf"
+                        "&locale=en_GB&access_token=USv96NMArDs9veh9NcvM47BJNePx4Q3TjD"
 
                 // Request a string response from the provided URL.
                 val stringRequest = StringRequest(
