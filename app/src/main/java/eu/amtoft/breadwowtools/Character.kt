@@ -7,6 +7,6 @@ class Character {
     var realm: String = "Argent Dawn"
     var region: String = "eu"
     var faction: Faction = Faction.UNKNOWN
-    var icon = R.drawable.mount_swift_white_hawkstrider
+    var imageUrl: String = ""
     var isMain: Boolean = false
 }

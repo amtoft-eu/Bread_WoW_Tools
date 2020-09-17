@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.character_item.view.*
 
 class CharacterAdapter(private val characters: ArrayList<Character>) : Adapter<CharacterAdapter.CharacterHolder>() {
@@ -38,11 +39,12 @@ class CharacterAdapter(private val characters: ArrayList<Character>) : Adapter<C
         fun bindCharacter(character: Character) {
             this.character = character
             view.characterName.text = character.name
-            view.characterImage.setImageResource(character.icon)
             view.characterGuild.text = character.guild
             view.characterRealm.text = character.realm
             view.characterLevel.text = character.level.toString()
-
+            if (character.imageUrl != ""){
+                Picasso.get().load(character.imageUrl).into(view.characterImage)
+            }
             when (character.faction){
                 Faction.ALLIANCE -> view.characterBackground.setBackgroundResource(R.drawable.texture_gradient_alliance)
                 Faction.HORDE -> view.characterBackground.setBackgroundResource(R.drawable.texture_gradient_horde)

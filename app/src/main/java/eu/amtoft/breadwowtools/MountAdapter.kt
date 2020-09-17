@@ -16,7 +16,6 @@ class MountAdapter(private val mounts: ArrayList<Mount>) : Adapter<MountAdapter.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MountHolder {
         val inflatedView = parent.inflate(R.layout.mount_item, false)
         var holder = MountHolder(inflatedView)
-//        holder.setIsRecyclable(false)
         return holder
 
     }

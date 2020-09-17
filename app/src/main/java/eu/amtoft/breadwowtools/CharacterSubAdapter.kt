@@ -5,13 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.character_item.view.*
 
 class CharacterSubAdapter(private val characters: ArrayList<Character>) : Adapter<CharacterSubAdapter.CharacterHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterHolder {
-        val inflatedView = parent.inflate(R.layout.mount_sub_item, false)
+        val inflatedView = parent.inflate(R.layout.character_sub_item, false)
         return CharacterHolder(inflatedView)
 
     }
@@ -38,7 +39,9 @@ class CharacterSubAdapter(private val characters: ArrayList<Character>) : Adapte
         fun bindCharacter(character: Character) {
             this.character = character
             view.characterName.text = character.name
-            view.characterImage.setImageResource(character.icon)
+            if (character.imageUrl != ""){
+                Picasso.get().load(character.imageUrl).into(view.characterImage)
+            }
 
             when (character.faction){
                 Faction.ALLIANCE -> view.characterBackground.setBackgroundResource(R.drawable.texture_gradient_alliance)

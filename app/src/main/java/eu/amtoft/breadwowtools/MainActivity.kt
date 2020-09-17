@@ -46,64 +46,13 @@ class MainActivity : AppCompatActivity() {
 
 
         val charactersJson = sharedPrefChar.getString(CHAR_PREF_NAME, "")
+        val gson = Gson()
         if (charactersJson != "") {
-            val gson = Gson()
             val itemType = object : TypeToken<ArrayList<Character>>() {}.type
             CharacterCollection.characters =
                 gson.fromJson<ArrayList<Character>>(charactersJson, itemType)
         }
-        else {
-            CharacterCollection.characters.add(Character())
-            CharacterCollection.characters[0].faction = Faction.ALLIANCE
-            CharacterCollection.characters[0].isMain = true
-            /*button.setOnClickListener {
-                Log.v("MAIN", "In on click listener")
-                // Initialize a new layout inflater instance
-                val inflater: LayoutInflater =
-                    getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-                // Inflate a custom view using layout inflater
-                val view = inflater.inflate(R.layout.popup_add_char, null)
-
-                // Initialize a new instance of popup window
-                val popupWindow = PopupWindow(
-                    view, // Custom view to show in popup window
-                    LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
-                    LinearLayout.LayoutParams.WRAP_CONTENT // Window height
-                )
-
-                // Set an elevation for the popup window
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    popupWindow.elevation = 10.0F
-                }
-
-
-                // If API level 23 or higher then execute the code
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    // Create a new slide animation for popup window enter transition
-                    val slideIn = Slide()
-                    slideIn.slideEdge = Gravity.TOP
-                    popupWindow.enterTransition = slideIn
-
-                    // Slide animation for popup window exit transition
-                    val slideOut = Slide()
-                    slideOut.slideEdge = Gravity.BOTTOM
-                    popupWindow.exitTransition = slideOut
-
-                }
-
-                popupWindow.isFocusable = true
-                popupWindow.update()
-
-                TransitionManager.beginDelayedTransition(root_layout)
-                popupWindow.showAtLocation(
-                    root_layout, // Location to display popup window
-                    Gravity.CENTER, // Exact position of layout to display popup
-                    0, // X offset
-                    0 // Y offset
-                )
-            }*/
-        }
 
 
 

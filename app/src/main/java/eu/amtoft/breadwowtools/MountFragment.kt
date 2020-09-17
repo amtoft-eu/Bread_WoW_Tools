@@ -49,7 +49,7 @@ class MountFragment : Fragment() {
                 var url = "https://" +
                         it.region +
                         ".api.blizzard.com/profile/wow/character/" +
-                        it.realm.toLowerCase().replace(" ", "-") +
+                        it.realm.toLowerCase().replace("-", "").replace(" ", "-").replace("'", "") +
                         "/" +
                         it.name.toLowerCase() +
                         "/collections/mounts?namespace=profile-" +
