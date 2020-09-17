@@ -89,7 +89,7 @@ class MountFragment : Fragment() {
         ObtainableMounts.mounts.forEach() { obtainable ->
             var found = false
             mountContainer.mounts.forEach() { known ->
-                if (known.mount.id == obtainable.id) {
+                if (known.mount.id == obtainable.id || (known.mount.id == 286 && obtainable.id == 287) || (known.mount.id == 287 && obtainable.id == 286)) {
                     Log.v("MOUNT", "Found matching ID: " + obtainable.id)
                     found = true
                 }

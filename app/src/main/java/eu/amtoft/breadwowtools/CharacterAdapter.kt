@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.character_item.view.*
 
-class CharacterAdapter(private val characters: ArrayList<Character>) : Adapter<CharacterAdapter.CharacterHolder>() {
+class CharacterAdapter(private val characters: ArrayList<Character>) :
+    Adapter<CharacterAdapter.CharacterHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterHolder {
@@ -42,12 +43,24 @@ class CharacterAdapter(private val characters: ArrayList<Character>) : Adapter<C
             view.characterGuild.text = character.guild
             view.characterRealm.text = character.realm
             view.characterLevel.text = character.level.toString()
-            if (character.imageUrl != ""){
-                Picasso.get().load(character.imageUrl).into(view.characterImage)
-            }
-            when (character.faction){
-                Faction.ALLIANCE -> view.characterBackground.setBackgroundResource(R.drawable.texture_gradient_alliance)
-                Faction.HORDE -> view.characterBackground.setBackgroundResource(R.drawable.texture_gradient_horde)
+
+            when (character.faction) {
+                Faction.ALLIANCE -> {
+                    view.characterBackground.setBackgroundResource(R.drawable.texture_gradient_alliance)
+                    if (character.imageUrl != "")
+                        Picasso.get().load(character.imageUrl)
+                            .placeholder(R.drawable.alliance_fallback).into(view.characterImage)
+                    else
+                        Picasso.get().load(R.drawable.alliance_fallback).into(view.characterImage)
+                }
+                Faction.HORDE -> {
+                    view.characterBackground.setBackgroundResource(R.drawable.texture_gradient_horde)
+                    if (character.imageUrl != "")
+                        Picasso.get().load(character.imageUrl)
+                            .placeholder(R.drawable.horde_fallback).into(view.characterImage)
+                    else
+                        Picasso.get().load(R.drawable.horde_fallback).into(view.characterImage)
+                }
                 else -> view.characterBackground.setBackgroundResource(R.drawable.texture2)
             }
 

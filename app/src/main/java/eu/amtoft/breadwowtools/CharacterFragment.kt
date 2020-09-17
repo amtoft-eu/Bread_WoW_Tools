@@ -10,19 +10,21 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
-import android.widget.LinearLayout
-import android.widget.PopupWindow
+import android.widget.*
 import android.widget.PopupWindow.*
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
+import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
+import eu.amtoft.breadwowtools.api.CharacterInfo
 import eu.amtoft.breadwowtools.api.CharacterMedia
 import eu.amtoft.breadwowtools.api.MountContainer
 import kotlinx.android.synthetic.main.fragment_character.view.*
+import kotlinx.android.synthetic.main.popup_add_char.*
 import kotlinx.android.synthetic.main.popup_add_char.view.*
 
 class CharacterFragment : Fragment() {
@@ -50,42 +52,8 @@ class CharacterFragment : Fragment() {
 
         adapter = CharacterAdapter(CharacterCollection.characters)
         characterRecycler.adapter = adapter
-
         val queue = Volley.newRequestQueue(context)
-
-        CharacterCollection.characters.forEach() {
-            // Instantiate the RequestQueue.
-            var url = "https://" +
-                    it.region +
-                    ".api.blizzard.com/profile/wow/character/" +
-                    it.realm.toLowerCase().replace("-", "").replace(" ", "-").replace("'", "") +
-                    "/" +
-                    it.name.toLowerCase() +
-                    "/character-media?namespace=profile-" +
-                    it.region +
-                    "&locale=en_GB&access_token=USm37o1MXYHe3u44vwvdOEDZE2zHkuWzHf"
-
-            // Request a string response from the provided URL.
-            val stringRequest = StringRequest(
-                Request.Method.GET, url,
-                { response ->
-                    it.imageUrl = convertJson(response)
-                    adapter.notifyDataSetChanged()
-                    CharacterCollection.saveCharacterList((activity as MainActivity?)!!)
-
-                },
-                {
-                    Log.v("JSON", "That didn't work!")
-                }
-            )
-            // Add the request to the RequestQueue.
-            queue.add(stringRequest)
-
-        }
-
-
-
-
+        getImages(queue)
 
         rootView.button.setOnClickListener {
             Log.v("MAIN", "In on click listener")
@@ -123,6 +91,44 @@ class CharacterFragment : Fragment() {
 
             }
 
+            popupWindow.contentView.name.requestFocus()
+
+            val regionArray = resources.getStringArray(R.array.regions)
+            Log.v("POPUP", "Regionarray: ${regionArray.size}")
+            val regionAdapter = ArrayAdapter<String>(context!!, R.layout.spinner_layout, R.id.text, regionArray)
+            popupWindow.contentView.spinnerRegion.adapter = regionAdapter
+
+            val euArray = resources.getStringArray(R.array.eu_realms)
+            val naArray = resources.getStringArray(R.array.na_realms)
+
+            popupWindow.contentView.spinnerRegion.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
+            {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    var realmAdapter : ArrayAdapter<String>
+                    if (position == 0) {
+                        realmAdapter = ArrayAdapter(
+                            context!!,
+                            R.layout.spinner_layout,
+                            R.id.text,
+                            euArray
+                        )
+                    }
+                    else{
+                        realmAdapter = ArrayAdapter(
+                            context!!,
+                            R.layout.spinner_layout,
+                            R.id.text,
+                            naArray
+                        )
+                    }
+                    popupWindow.contentView.spinnerRealm.adapter = realmAdapter
+                }
+            }
+
             TransitionManager.beginDelayedTransition(rootView.root_layout)
             popupWindow.showAtLocation(
                 rootView.root_layout, // Location to display popup window
@@ -134,8 +140,66 @@ class CharacterFragment : Fragment() {
             popupWindow.isFocusable = true
             popupWindow.isOutsideTouchable = false
             popupWindow.update()
-            popupWindow.contentView.name.requestFocus()
 
+
+            popupWindow.contentView.cancelAdd.setOnClickListener {
+                popupWindow.dismiss()
+            }
+
+            popupWindow.contentView.confirmAdd.setOnClickListener {
+                var character = Character()
+                character.name = popupWindow.contentView.name.text.toString()
+                character.realm = popupWindow.contentView.spinnerRealm.selectedItem.toString()
+                character.region = popupWindow.contentView.spinnerRegion.selectedItem.toString().toLowerCase()
+                // Instantiate the RequestQueue.
+                var url = "https://" +
+                        character.region +
+                        ".api.blizzard.com/profile/wow/character/" +
+                        character.realm.toLowerCase().replace("-", "").replace(" ", "-").replace("'", "") +
+                        "/" +
+                        character.name.toLowerCase() +
+                        "?namespace=profile-" +
+                        character.region +
+                        "&locale=en_GB&access_token=USv96NMArDs9veh9NcvM47BJNePx4Q3TjD"
+
+                // Request a string response from the provided URL.
+                val stringRequest = StringRequest(
+                    Request.Method.GET, url,
+                    { response ->
+                        val gson = Gson()
+                        var apiCharacter = gson.fromJson(response, CharacterInfo::class.java)
+                        Log.v("POPUP", apiCharacter.toString())
+                        character.guild = apiCharacter.guild.name
+
+                        if (apiCharacter.faction.type == "HORDE")
+                            character.faction = Faction.HORDE
+                        else
+                            character.faction = Faction.ALLIANCE
+
+                        character.level = apiCharacter.level
+
+                        if (CharacterCollection.characters.size == 0)
+                            character.isMain = true
+
+                        CharacterCollection.characters.add(character)
+
+                        adapter.notifyItemInserted(CharacterCollection.characters.size - 1)
+                        getImages(queue, CharacterCollection.characters.size - 1)
+
+                        CharacterCollection.saveCharacterList((activity as MainActivity?)!!)
+
+                        popupWindow.dismiss()
+
+                    },
+                    {
+                        Log.v("JSON", "That didn't work!")
+                        Toast.makeText(context, "Character doesn't exist", Toast.LENGTH_SHORT).show()
+                    }
+                )
+                // Add the request to the RequestQueue.
+                queue.add(stringRequest)
+
+            }
 
         }
 
@@ -158,7 +222,44 @@ class CharacterFragment : Fragment() {
         return characterMedia.avatar_url
     }
 
-    fun getImage(url: String) {
+    fun getImages(queue: RequestQueue, position: Int = 0) {
 
+        var rangeUpper = CharacterCollection.characters.size - 1
+        var rangeLower = 0
+
+        if (position != 0){
+            rangeUpper = position
+            rangeLower = position
+        }
+
+        for (i in rangeUpper downTo rangeLower){
+            // Instantiate the RequestQueue.
+            var url = "https://" +
+                    CharacterCollection.characters[i].region +
+                    ".api.blizzard.com/profile/wow/character/" +
+                    CharacterCollection.characters[i].realm.toLowerCase().replace("-", "").replace(" ", "-").replace("'", "") +
+                    "/" +
+                    CharacterCollection.characters[i].name.toLowerCase() +
+                    "/character-media?namespace=profile-" +
+                    CharacterCollection.characters[i].region +
+                    "&locale=en_GB&access_token=USv96NMArDs9veh9NcvM47BJNePx4Q3TjD"
+
+            // Request a string response from the provided URL.
+            val stringRequest = StringRequest(
+                Request.Method.GET, url,
+                { response ->
+                    CharacterCollection.characters[i].imageUrl = convertJson(response)
+                    adapter.notifyItemChanged(i)
+                    CharacterCollection.saveCharacterList((activity as MainActivity?)!!)
+
+                },
+                {
+                    Log.v("JSON", "That didn't work!")
+                }
+            )
+            // Add the request to the RequestQueue.
+            queue.add(stringRequest)
+
+        }
     }
 }

@@ -39,13 +39,24 @@ class CharacterSubAdapter(private val characters: ArrayList<Character>) : Adapte
         fun bindCharacter(character: Character) {
             this.character = character
             view.characterName.text = character.name
-            if (character.imageUrl != ""){
-                Picasso.get().load(character.imageUrl).into(view.characterImage)
-            }
 
-            when (character.faction){
-                Faction.ALLIANCE -> view.characterBackground.setBackgroundResource(R.drawable.texture_gradient_alliance)
-                Faction.HORDE -> view.characterBackground.setBackgroundResource(R.drawable.texture_gradient_horde)
+            when (character.faction) {
+                Faction.ALLIANCE -> {
+                    view.characterBackground.setBackgroundResource(R.drawable.texture_gradient_alliance)
+                    if (character.imageUrl != "")
+                        Picasso.get().load(character.imageUrl)
+                            .placeholder(R.drawable.alliance_fallback).into(view.characterImage)
+                    else
+                        Picasso.get().load(R.drawable.alliance_fallback).into(view.characterImage)
+                }
+                Faction.HORDE -> {
+                    view.characterBackground.setBackgroundResource(R.drawable.texture_gradient_horde)
+                    if (character.imageUrl != "")
+                        Picasso.get().load(character.imageUrl)
+                            .placeholder(R.drawable.horde_fallback).into(view.characterImage)
+                    else
+                        Picasso.get().load(R.drawable.horde_fallback).into(view.characterImage)
+                }
                 else -> view.characterBackground.setBackgroundResource(R.drawable.texture2)
             }
 

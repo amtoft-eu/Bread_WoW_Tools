@@ -52,6 +52,8 @@ class MainActivity : AppCompatActivity() {
             CharacterCollection.characters =
                 gson.fromJson<ArrayList<Character>>(charactersJson, itemType)
         }
+        else{
+        }
 
 
 
@@ -62,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         viewPager.setCurrentItem(1, false)
         bottomNav.selectedItemId = R.id.button_2
 
+        viewPager.isUserInputEnabled = false
         viewPager.registerOnPageChangeCallback(PageChange { })
         bottomNav.setOnNavigationItemSelectedListener(ItemSelect { })
 
