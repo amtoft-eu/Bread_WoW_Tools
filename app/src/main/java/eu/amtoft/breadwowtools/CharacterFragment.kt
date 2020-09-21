@@ -13,6 +13,7 @@ import android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
 import android.widget.*
 import android.widget.PopupWindow.*
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -59,7 +60,7 @@ class CharacterFragment : Fragment() {
             Log.v("MAIN", "In on click listener")
             // Initialize a new layout inflater instance
             val inflater: LayoutInflater =
-                activity!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
             // Inflate a custom view using layout inflater
             val view = inflater.inflate(R.layout.popup_add_char, null)
@@ -95,39 +96,48 @@ class CharacterFragment : Fragment() {
 
             val regionArray = resources.getStringArray(R.array.regions)
             Log.v("POPUP", "Regionarray: ${regionArray.size}")
-            val regionAdapter = ArrayAdapter<String>(context!!, R.layout.spinner_layout, R.id.text, regionArray)
+            val regionAdapter = ArrayAdapter<String>(
+                requireContext(),
+                R.layout.spinner_layout,
+                R.id.text,
+                regionArray
+            )
             popupWindow.contentView.spinnerRegion.adapter = regionAdapter
 
             val euArray = resources.getStringArray(R.array.eu_realms)
             val naArray = resources.getStringArray(R.array.na_realms)
 
-            popupWindow.contentView.spinnerRegion.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
-            {
-                override fun onNothingSelected(parent: AdapterView<*>?) {
+            popupWindow.contentView.spinnerRegion.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
 
-                }
+                    }
 
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    var realmAdapter : ArrayAdapter<String>
-                    if (position == 0) {
-                        realmAdapter = ArrayAdapter(
-                            context!!,
-                            R.layout.spinner_layout,
-                            R.id.text,
-                            euArray
-                        )
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        var realmAdapter: ArrayAdapter<String>
+                        if (position == 0) {
+                            realmAdapter = ArrayAdapter(
+                                context!!,
+                                R.layout.spinner_layout,
+                                R.id.text,
+                                euArray
+                            )
+                        } else {
+                            realmAdapter = ArrayAdapter(
+                                context!!,
+                                R.layout.spinner_layout,
+                                R.id.text,
+                                naArray
+                            )
+                        }
+                        popupWindow.contentView.spinnerRealm.adapter = realmAdapter
                     }
-                    else{
-                        realmAdapter = ArrayAdapter(
-                            context!!,
-                            R.layout.spinner_layout,
-                            R.id.text,
-                            naArray
-                        )
-                    }
-                    popupWindow.contentView.spinnerRealm.adapter = realmAdapter
                 }
-            }
 
             TransitionManager.beginDelayedTransition(rootView.root_layout)
             popupWindow.showAtLocation(
@@ -150,12 +160,14 @@ class CharacterFragment : Fragment() {
                 var character = Character()
                 character.name = popupWindow.contentView.name.text.toString()
                 character.realm = popupWindow.contentView.spinnerRealm.selectedItem.toString()
-                character.region = popupWindow.contentView.spinnerRegion.selectedItem.toString().toLowerCase()
+                character.region =
+                    popupWindow.contentView.spinnerRegion.selectedItem.toString().toLowerCase()
                 // Instantiate the RequestQueue.
                 var url = "https://" +
                         character.region +
                         ".api.blizzard.com/profile/wow/character/" +
-                        character.realm.toLowerCase().replace("-", "").replace(" ", "-").replace("'", "") +
+                        character.realm.toLowerCase().replace("-", "").replace(" ", "-")
+                            .replace("'", "") +
                         "/" +
                         character.name.toLowerCase() +
                         "?namespace=profile-" +
@@ -178,10 +190,15 @@ class CharacterFragment : Fragment() {
 
                         character.level = apiCharacter.level
 
-                        if (CharacterCollection.characters.size == 0)
+
+
+
+                        if (CharacterCollection.characters.size == 0) {
                             character.isMain = true
+                        }
 
                         CharacterCollection.characters.add(character)
+                        setFragmentResult("getMounts", Bundle())
 
                         adapter.notifyItemInserted(CharacterCollection.characters.size - 1)
                         getImages(queue, CharacterCollection.characters.size - 1)
@@ -193,7 +210,8 @@ class CharacterFragment : Fragment() {
                     },
                     {
                         Log.v("JSON", "That didn't work!")
-                        Toast.makeText(context, "Character doesn't exist", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Character doesn't exist", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 )
                 // Add the request to the RequestQueue.
@@ -218,7 +236,7 @@ class CharacterFragment : Fragment() {
 
     fun convertJson(json: String): String {
         var gson = Gson()
-        var characterMedia = gson.fromJson<CharacterMedia>(json, CharacterMedia::class.java)
+        var characterMedia = gson.fromJson(json, CharacterMedia::class.java)
         return characterMedia.avatar_url
     }
 
@@ -227,17 +245,18 @@ class CharacterFragment : Fragment() {
         var rangeUpper = CharacterCollection.characters.size - 1
         var rangeLower = 0
 
-        if (position != 0){
+        if (position != 0) {
             rangeUpper = position
             rangeLower = position
         }
 
-        for (i in rangeUpper downTo rangeLower){
+        for (i in rangeUpper downTo rangeLower) {
             // Instantiate the RequestQueue.
             var url = "https://" +
                     CharacterCollection.characters[i].region +
                     ".api.blizzard.com/profile/wow/character/" +
-                    CharacterCollection.characters[i].realm.toLowerCase().replace("-", "").replace(" ", "-").replace("'", "") +
+                    CharacterCollection.characters[i].realm.toLowerCase().replace("-", "")
+                        .replace(" ", "-").replace("'", "") +
                     "/" +
                     CharacterCollection.characters[i].name.toLowerCase() +
                     "/character-media?namespace=profile-" +

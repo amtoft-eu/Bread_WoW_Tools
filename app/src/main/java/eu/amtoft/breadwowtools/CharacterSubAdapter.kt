@@ -7,8 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.character_item.view.*
+import kotlinx.android.synthetic.main.character_item.view.characterBackground
+import kotlinx.android.synthetic.main.character_item.view.characterImage
+import kotlinx.android.synthetic.main.character_item.view.characterName
+import kotlinx.android.synthetic.main.character_sub_item.view.*
 
-class CharacterSubAdapter(private val characters: ArrayList<Character>) : Adapter<CharacterSubAdapter.CharacterHolder>() {
+class CharacterSubAdapter(private val characters: ArrayList<Character>, private val mount: Mount, private val activity: MainActivity) : Adapter<CharacterSubAdapter.CharacterHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterHolder {
@@ -19,14 +23,14 @@ class CharacterSubAdapter(private val characters: ArrayList<Character>) : Adapte
 
     override fun onBindViewHolder(holder: CharacterHolder, position: Int) {
         val item = characters[position]
-        holder.bindCharacter(item)
+        holder.bindCharacter(item, position)
     }
 
     override fun getItemCount(): Int {
         return characters.size
     }
 
-    class CharacterHolder(v: View) : RecyclerView.ViewHolder(v),
+    inner class CharacterHolder(v: View) : RecyclerView.ViewHolder(v),
         View.OnClickListener {
 
         private var view: View = v
@@ -36,7 +40,7 @@ class CharacterSubAdapter(private val characters: ArrayList<Character>) : Adapte
             Log.d("RecyclerView", "CLICK!")
         }
 
-        fun bindCharacter(character: Character) {
+        fun bindCharacter(character: Character, position: Int) {
             this.character = character
             view.characterName.text = character.name
 
@@ -60,10 +64,13 @@ class CharacterSubAdapter(private val characters: ArrayList<Character>) : Adapte
                 else -> view.characterBackground.setBackgroundResource(R.drawable.texture2)
             }
 
-        }
+            view.checkbox.isChecked = mount.checkedList[position]
 
-        companion object {
-            private val CHARACTER_KEY = "CHARACTER"
+            view.checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
+                mount.checkedList[position] = isChecked
+                MountCollection.saveMountList(activity)
+            }
+
         }
 
     }

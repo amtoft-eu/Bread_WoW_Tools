@@ -1,12 +1,14 @@
 package eu.amtoft.breadwowtools
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -19,12 +21,18 @@ class MountFragment : Fragment() {
 
     private lateinit var adapter: MountAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private var PRIVATE_MODE = 0
-    private val PREF_NAME = "CHARACTERS"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
+
+        // Use the Kotlin extension in the fragment-ktx artifact
+        setFragmentResultListener("mountUpdate") { _, _ ->
+            Log.v("MOUNT", "setFragmentResultListener1")
+            adapter.notifyDataSetChanged()
+        }
+        setFragmentResultListener("getMounts") { _, _ ->
+            Log.v("MOUNT", "setFragmentResultListener2")
+            getMounts()
         }
     }
 
@@ -35,16 +43,30 @@ class MountFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_mount, container, false)
 
 
-
         val mountRecycler = rootView.findViewById(R.id.mountRecycler) as RecyclerView
         linearLayoutManager = LinearLayoutManager(context)
 
         mountRecycler.layoutManager = linearLayoutManager
 
-        val queue = Volley.newRequestQueue(context)
+        getMounts()
 
-        CharacterCollection.characters.forEach() {
-            // Instantiate the RequestQueue.
+        adapter = MountAdapter(MountCollection.unknownMounts, activity as MainActivity)
+        mountRecycler.adapter = adapter
+
+
+
+        return rootView
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = MountFragment().apply { arguments = Bundle().apply {} }
+    }
+
+    fun getMounts() {
+        Log.v("MOUNT", "In getMounts")
+        val queue = Volley.newRequestQueue(activity as MainActivity)
+        CharacterCollection.characters.forEach {
             if (it.isMain) {
                 var url = "https://" +
                         it.region +
@@ -55,60 +77,90 @@ class MountFragment : Fragment() {
                         "/collections/mounts?namespace=profile-" +
                         it.region +
                         "&locale=en_GB&access_token=USv96NMArDs9veh9NcvM47BJNePx4Q3TjD"
-
-                // Request a string response from the provided URL.
                 val stringRequest = StringRequest(
                     Request.Method.GET, url,
                     { response ->
-                        // Display the first 500 characters of the response string.
                         convertJson(response)
+                        MountCollection.unknownMounts.forEach {
+                            for (i in it.checkedList.size until CharacterCollection.characters.size){
+                                it.checkedList.add(false)
+                            }
+                        }
                     },
                     {
                         Log.v("JSON", "That didn't work!")
                     }
                 )
-                // Add the request to the RequestQueue.
                 queue.add(stringRequest)
             }
         }
-
-        adapter = MountAdapter(ObtainableMounts.unknownMounts)
-        mountRecycler.adapter = adapter
-
-        return rootView
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = MountFragment().apply { arguments = Bundle().apply {} }
+    private fun convertJson(json: String) {
+        val gson = Gson()
+        val mountContainer = gson.fromJson(json, MountContainer::class.java)
+        if (MountCollection.unknownMounts.size == 0)
+            initialMountFiltering(mountContainer)
+        else
+            updateMounts(mountContainer)
+
     }
 
-    fun convertJson(json: String) {
-        var gson = Gson()
-        var mountContainer = gson.fromJson<MountContainer>(json, MountContainer::class.java)
-        ObtainableMounts.mounts.forEach() { obtainable ->
+    private fun initialMountFiltering(mountContainer: MountContainer) {
+        MountCollection.mounts.forEach { obtainable ->
             var found = false
-            mountContainer.mounts.forEach() { known ->
+            mountContainer.mounts.forEach { known ->
                 if (known.mount.id == obtainable.id || (known.mount.id == 286 && obtainable.id == 287) || (known.mount.id == 287 && obtainable.id == 286)) {
-                    Log.v("MOUNT", "Found matching ID: " + obtainable.id)
                     found = true
                 }
             }
             if (!found) {
 
                 var foundInUnknown = false
-                ObtainableMounts.unknownMounts.forEach() { unknownMount ->
-                    if (unknownMount.id == obtainable.id){
+                MountCollection.unknownMounts.forEach { unknownMount ->
+                    if (unknownMount.id == obtainable.id) {
                         foundInUnknown = true
                     }
                 }
-                if (!foundInUnknown){
-                    ObtainableMounts.unknownMounts.add(obtainable)
+                if (!foundInUnknown) {
+                    MountCollection.unknownMounts.add(obtainable)
                 }
-
             }
         }
-        adapter.notifyDataSetChanged()
+        Log.v("MOUNT", "setFragmentResult")
+        setFragmentResult("mountUpdate", Bundle())
+        MountCollection.saveMountList(activity as MainActivity)
     }
+
+    private fun updateMounts(mountContainer: MountContainer) {
+
+        MountCollection.mounts.forEach { obtainable ->
+            var unknown = false
+            var mount = Mount()
+            MountCollection.unknownMounts.forEach { unknownMount ->
+                if (obtainable.id == unknownMount.id) {
+                    unknown = true
+                    mount = unknownMount
+                }
+            }
+            var known = false
+            mountContainer.mounts.forEach { knownMount ->
+                if (obtainable.id == knownMount.mount.id)
+                    known = true
+            }
+
+            if (unknown && known) {
+                MountCollection.unknownMounts.remove(mount)
+            }
+            if (!unknown && !known && obtainable.id != 286 && obtainable.id != 287) {
+                CharacterCollection.characters.forEach {
+                    obtainable.checkedList.add(false)
+                }
+                MountCollection.unknownMounts.add(obtainable)
+            }
+        }
+        MountCollection.saveMountList(activity as MainActivity)
+    }
+
 
 }

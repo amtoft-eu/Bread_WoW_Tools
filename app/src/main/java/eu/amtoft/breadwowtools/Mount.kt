@@ -10,5 +10,6 @@ class Mount(
     var icon: Int = R.drawable.mount_swift_white_hawkstrider
 ) {
     var expanded: Boolean = false
-    var characterList: ArrayList<Character> = ArrayList()
+    var checkedList: ArrayList<Boolean> = ArrayList()
+
 }

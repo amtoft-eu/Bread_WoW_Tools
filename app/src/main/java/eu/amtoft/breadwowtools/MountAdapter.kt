@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import kotlinx.android.synthetic.main.mount_item.view.*
 
-class MountAdapter(private val mounts: ArrayList<Mount>) : Adapter<MountAdapter.MountHolder>() {
+class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: MainActivity) : Adapter<MountAdapter.MountHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MountHolder {
@@ -27,6 +27,7 @@ class MountAdapter(private val mounts: ArrayList<Mount>) : Adapter<MountAdapter.
             item.expanded = !item.expanded
             it.sub_item.visibility = if (item.expanded) VISIBLE else GONE
             notifyItemChanged(position)
+            MountCollection.saveMountList(activity)
         }
         holder.bindMount(item)
     }
@@ -35,7 +36,7 @@ class MountAdapter(private val mounts: ArrayList<Mount>) : Adapter<MountAdapter.
         return mounts.size
     }
 
-    class MountHolder(v: View) : RecyclerView.ViewHolder(v),
+    inner class MountHolder(v: View) : RecyclerView.ViewHolder(v),
         View.OnClickListener {
 
         private var view: View = v
@@ -75,14 +76,10 @@ class MountAdapter(private val mounts: ArrayList<Mount>) : Adapter<MountAdapter.
             val characterRecycler = view.findViewById(R.id.sub_item) as RecyclerView
             linearLayoutManager = LinearLayoutManager(view.context)
             characterRecycler.layoutManager = linearLayoutManager
-            adapter = CharacterSubAdapter(CharacterCollection.characters)
+            adapter = CharacterSubAdapter(CharacterCollection.characters, mount, activity)
             characterRecycler.adapter = adapter
 
 
-        }
-
-        companion object {
-            private val MOUNT_KEY = "MOUNT"
         }
 
     }

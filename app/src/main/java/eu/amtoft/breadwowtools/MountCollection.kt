@@ -1,6 +1,10 @@
 package eu.amtoft.breadwowtools
 
-object ObtainableMounts {
+import android.content.SharedPreferences
+import android.util.Log
+import com.google.gson.Gson
+
+object MountCollection {
     var mounts: ArrayList<Mount> = ArrayList()
     var unknownMounts: ArrayList<Mount> = ArrayList()
     init {
@@ -81,4 +85,12 @@ object ObtainableMounts {
         mounts.add(Mount(1327, "Ren's Stalwart Hound",            Expansion.BFA,     "Vale of Eternal Blossoms",     3.0,    Reset.DAILY, R.drawable.mount_quilen_red))
         mounts.add(Mount(1328, "Xinlao",                          Expansion.BFA,     "Vale of Eternal Blossoms",     3.0,    Reset.DAILY, R.drawable.mount_quilen_gold))
     }
+
+    fun saveMountList(activity: MainActivity){
+        Log.v("MOUNTCOLLECTION", "Saving mounts...")
+        val gson = Gson()
+        val sharedPrefMount: SharedPreferences = activity.getSharedPreferences("MOUNTS", 0)
+        sharedPrefMount.edit().putString("MOUNTS", gson.toJson(MountCollection.unknownMounts)).apply()
+    }
+
 }
