@@ -16,6 +16,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import eu.amtoft.breadwowtools.api.MountContainer
+import java.util.*
 
 class MountFragment : Fragment() {
 
@@ -129,6 +130,7 @@ class MountFragment : Fragment() {
         }
         Log.v("MOUNT", "setFragmentResult")
         setFragmentResult("mountUpdate", Bundle())
+        MountCollection.unknownMounts.sort()
         MountCollection.saveMountList(activity as MainActivity)
     }
 
@@ -163,6 +165,7 @@ class MountFragment : Fragment() {
                 adapter.notifyItemInserted(MountCollection.unknownMounts.size-1)
             }
         }
+        MountCollection.unknownMounts.sort()
         MountCollection.saveMountList(activity as MainActivity)
     }
 

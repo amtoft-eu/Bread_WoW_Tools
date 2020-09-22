@@ -1,5 +1,6 @@
 package eu.amtoft.breadwowtools
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.View
 import android.view.View.GONE
@@ -10,26 +11,33 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import kotlinx.android.synthetic.main.mount_item.view.*
 
-class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: MainActivity) : Adapter<MountAdapter.MountHolder>() {
+
+class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: MainActivity) :
+    Adapter<MountAdapter.MountHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MountHolder {
         val inflatedView = parent.inflate(R.layout.mount_item, false)
-        var holder = MountHolder(inflatedView)
-        return holder
+        return MountHolder(inflatedView)
 
     }
 
     override fun onBindViewHolder(holder: MountHolder, position: Int) {
-        val item = mounts[position]
+        val mount = mounts[position]
 
-        holder.itemView.setOnClickListener {
-            item.expanded = !item.expanded
-            it.sub_item.visibility = if (item.expanded) VISIBLE else GONE
-            notifyItemChanged(position)
-            MountCollection.saveMountList(activity)
+        holder.itemView.setOnClickListener {view ->
+            mount.expanded = !mount.expanded
+            view.sub_item.visibility = if (mount.expanded) VISIBLE else GONE
+            if (mount.expanded) {
+                view.expandArrow.animate().setDuration(250).rotation(180F)
+            } else {
+                view.expandArrow.animate().setDuration(250).rotation(0F).withEndAction { notifyItemChanged(position) }
+            }
+
+
+
         }
-        holder.bindMount(item)
+        holder.bindMount(mount)
     }
 
     override fun getItemCount(): Int {
@@ -48,6 +56,7 @@ class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: M
             Log.d("RecyclerView", "CLICK!")
         }
 
+        @SuppressLint("SetTextI18n")
         fun bindMount(mount: Mount) {
             this.mount = mount
 
@@ -55,12 +64,13 @@ class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: M
             view.mountName.text = mount.name
             view.mountImage.setImageResource(mount.icon)
             view.mountLocation.text = mount.location
+            view.expandArrow.rotation = if (mount.expanded) 180F else 0F
             if (mount.droprate != 0.0)
                 view.mountDroprate.text = "~%.1f %%".format(mount.droprate)
             else
                 view.mountDroprate.text = ""
 
-                    when (mount.expansion){
+            when (mount.expansion) {
                 Expansion.VANILLA -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_01_vanilla)
                 Expansion.TBC -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_02_tbc)
                 Expansion.WOTLK -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_03_wotlk)
@@ -78,6 +88,9 @@ class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: M
             characterRecycler.layoutManager = linearLayoutManager
             adapter = CharacterSubAdapter(CharacterCollection.characters, mount, activity)
             characterRecycler.adapter = adapter
+
+
+            Log.v("MOUNT", "Rotation: " + view.expandArrow.rotation)
 
 
         }

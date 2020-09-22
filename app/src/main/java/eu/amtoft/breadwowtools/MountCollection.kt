@@ -88,9 +88,13 @@ object MountCollection {
 
     fun saveMountList(activity: MainActivity){
         Log.v("MOUNTCOLLECTION", "Saving mounts...")
+        val mountsToSave = ArrayList<Mount>()
+        unknownMounts.forEach{mount ->
+            mountsToSave.add(mount.clone())
+        }
         val gson = Gson()
         val sharedPrefMount: SharedPreferences = activity.getSharedPreferences("MOUNTS", 0)
-        sharedPrefMount.edit().putString("MOUNTS", gson.toJson(MountCollection.unknownMounts)).apply()
+        sharedPrefMount.edit().putString("MOUNTS", gson.toJson(mountsToSave)).apply()
     }
 
 }

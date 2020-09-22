@@ -52,11 +52,23 @@
                 app:layout_constraintStart_toEndOf="@id/mountImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/expandArrow"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:adjustViewBounds="true"
+                android:layout_marginEnd="17dp"
+                app:srcCompat="@drawable/ic_expand_button"
+                app:layout_constraintBottom_toBottomOf="@id/mountLocation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/mountLocation"
+                app:tint="@color/gold" />
+
             <TextView
                 android:id="@+id/mountDroprate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="22dp"
+                android:layout_marginEnd="10dp"
                 android:shadowColor="@color/text_shadow"
                 android:shadowDx="1"
                 android:shadowDy="1"
@@ -65,7 +77,7 @@
                 android:textColor="@color/gold"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/mountLocation"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/expandArrow"
                 app:layout_constraintTop_toTopOf="@id/mountLocation" />
 
             <TextView
