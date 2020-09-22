@@ -76,7 +76,7 @@ class MountFragment : Fragment() {
                         it.name.toLowerCase() +
                         "/collections/mounts?namespace=profile-" +
                         it.region +
-                        "&locale=en_GB&access_token=USv96NMArDs9veh9NcvM47BJNePx4Q3TjD"
+                        "&locale=en_GB&access_token=USSKcgwq7pTpiYKyKAV2I8Ub2pgIeV4k0r"
                 val stringRequest = StringRequest(
                     Request.Method.GET, url,
                     { response ->
@@ -88,7 +88,7 @@ class MountFragment : Fragment() {
                         }
                     },
                     {
-                        Log.v("JSON", "That didn't work!")
+                        Log.v("MOUNT", "GET didn't work!")
                     }
                 )
                 queue.add(stringRequest)
@@ -150,13 +150,17 @@ class MountFragment : Fragment() {
             }
 
             if (unknown && known) {
+                var pos = MountCollection.unknownMounts.indexOf(mount)
                 MountCollection.unknownMounts.remove(mount)
+                adapter.notifyItemRemoved(pos)
+
             }
             if (!unknown && !known && obtainable.id != 286 && obtainable.id != 287) {
                 CharacterCollection.characters.forEach {
                     obtainable.checkedList.add(false)
                 }
                 MountCollection.unknownMounts.add(obtainable)
+                adapter.notifyItemInserted(MountCollection.unknownMounts.size-1)
             }
         }
         MountCollection.saveMountList(activity as MainActivity)

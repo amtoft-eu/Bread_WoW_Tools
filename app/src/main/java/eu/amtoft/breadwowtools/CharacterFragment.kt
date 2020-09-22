@@ -172,7 +172,7 @@ class CharacterFragment : Fragment() {
                         character.name.toLowerCase() +
                         "?namespace=profile-" +
                         character.region +
-                        "&locale=en_GB&access_token=USv96NMArDs9veh9NcvM47BJNePx4Q3TjD"
+                        "&locale=en_GB&access_token=USSKcgwq7pTpiYKyKAV2I8Ub2pgIeV4k0r"
 
                 // Request a string response from the provided URL.
                 val stringRequest = StringRequest(
@@ -209,7 +209,7 @@ class CharacterFragment : Fragment() {
 
                     },
                     {
-                        Log.v("JSON", "That didn't work!")
+                        Log.v("CHARACTER", "GET didn't work!")
                         Toast.makeText(context, "Character doesn't exist", Toast.LENGTH_SHORT)
                             .show()
                     }
