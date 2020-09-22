@@ -31,9 +31,9 @@ class MountFragment : Fragment() {
             Log.v("MOUNT", "setFragmentResultListener1")
             adapter.notifyDataSetChanged()
         }
-        setFragmentResultListener("getMounts") { _, _ ->
+        setFragmentResultListener("getMounts") { a, bundle ->
             Log.v("MOUNT", "setFragmentResultListener2")
-            getMounts()
+            getMounts(bundle.getInt("charPos", -1))
         }
     }
 
@@ -49,7 +49,7 @@ class MountFragment : Fragment() {
 
         mountRecycler.layoutManager = linearLayoutManager
 
-        getMounts()
+        getMounts(-1)
 
         adapter = MountAdapter(MountCollection.unknownMounts, activity as MainActivity)
         mountRecycler.adapter = adapter
@@ -64,28 +64,27 @@ class MountFragment : Fragment() {
         fun newInstance() = MountFragment().apply { arguments = Bundle().apply {} }
     }
 
-    fun getMounts() {
+    fun getMounts(charPos: Int) {
         Log.v("MOUNT", "In getMounts")
         val queue = Volley.newRequestQueue(activity as MainActivity)
-        CharacterCollection.characters.forEach {
-            if (it.isMain) {
+        CharacterCollection.characters.forEach { character ->
+            if (character.isMain) {
                 var url = "https://" +
-                        it.region +
+                        character.region +
                         ".api.blizzard.com/profile/wow/character/" +
-                        it.realm.toLowerCase().replace("-", "").replace(" ", "-").replace("'", "") +
+                        character.realm.toLowerCase().replace("-", "").replace(" ", "-").replace("'", "") +
                         "/" +
-                        it.name.toLowerCase() +
+                        character.name.toLowerCase() +
                         "/collections/mounts?namespace=profile-" +
-                        it.region +
+                        character.region +
                         "&locale=en_GB&access_token=USSKcgwq7pTpiYKyKAV2I8Ub2pgIeV4k0r"
                 val stringRequest = StringRequest(
                     Request.Method.GET, url,
                     { response ->
                         convertJson(response)
+                        if (charPos >= 0)
                         MountCollection.unknownMounts.forEach {
-                            for (i in it.checkedList.size until CharacterCollection.characters.size){
-                                it.checkedList.add(false)
-                            }
+                                it.checkedList.add(charPos, false)
                         }
                     },
                     {
@@ -143,6 +142,7 @@ class MountFragment : Fragment() {
                 if (obtainable.id == unknownMount.id) {
                     unknown = true
                     mount = unknownMount
+                    unknownMount.icon = obtainable.icon
                 }
             }
             var known = false

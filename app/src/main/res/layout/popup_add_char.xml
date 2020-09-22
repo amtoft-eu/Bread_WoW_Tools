@@ -42,12 +42,11 @@
 
         <EditText
             android:id="@+id/name"
-            android:layout_width="200dp"
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
-            android:inputType="textNoSuggestions"
+            android:inputType="textPersonName"
             android:textSize="18sp"
             android:textColor="@color/gold"
-            android:text="123"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:layout_marginStart="22dp"
@@ -69,12 +68,13 @@
 
         <Spinner
             android:id="@+id/spinnerRegion"
-            android:layout_width="350dp"
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/regionTitle"
             android:layout_marginTop="10dp"
             android:layout_marginStart="22dp"
+            android:backgroundTint="?attr/colorFocused"
             android:popupBackground="?attr/colorUnfocused"/>
 
         <TextView
@@ -90,12 +90,13 @@
             android:layout_marginStart="22dp"/>
         <Spinner
             android:id="@+id/spinnerRealm"
-            android:layout_width="350dp"
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/realmTitle"
             android:layout_marginTop="10dp"
             android:layout_marginStart="22dp"
+            android:backgroundTint="?attr/colorFocused"
             android:popupBackground="?attr/colorUnfocused"/>
 
         <Button

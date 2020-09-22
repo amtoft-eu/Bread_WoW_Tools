@@ -198,10 +198,14 @@ class CharacterFragment : Fragment() {
                         }
 
                         CharacterCollection.characters.add(character)
-                        setFragmentResult("getMounts", Bundle())
+                        CharacterCollection.characters.sort()
 
-                        adapter.notifyItemInserted(CharacterCollection.characters.size - 1)
-                        getImages(queue, CharacterCollection.characters.size - 1)
+                        val bundle = Bundle()
+                        bundle.putInt("charPos", CharacterCollection.characters.indexOf(character))
+                        setFragmentResult("getMounts", bundle)
+
+                        adapter.notifyItemInserted(CharacterCollection.characters.indexOf(character))
+                        getImages(queue, CharacterCollection.characters.indexOf(character))
 
                         CharacterCollection.saveCharacterList((activity as MainActivity?)!!)
 

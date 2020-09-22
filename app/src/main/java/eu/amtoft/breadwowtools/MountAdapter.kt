@@ -27,12 +27,14 @@ class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: M
 
         holder.itemView.setOnClickListener {view ->
             mount.expanded = !mount.expanded
-            view.sub_item.visibility = if (mount.expanded) VISIBLE else GONE
-            if (mount.expanded) {
-                view.expandArrow.animate().setDuration(250).rotation(180F)
-            } else {
-                view.expandArrow.animate().setDuration(250).rotation(0F).withEndAction { notifyItemChanged(position) }
-            }
+            mount.animationDone = false
+            notifyItemChanged(position)
+//            view.sub_item.visibility = if (mount.expanded) VISIBLE else GONE
+//            if (mount.expanded) {
+//                view.expandArrow.animate().setDuration(250).rotation(180F)
+//            } else {
+//                view.expandArrow.animate().setDuration(250).rotation(0F).withEndAction { notifyItemChanged(position) }
+//            }
 
 
 
@@ -60,11 +62,25 @@ class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: M
         fun bindMount(mount: Mount) {
             this.mount = mount
 
+            if (mount.animationDone){
+                view.expandArrow.rotation = if (mount.expanded) 180F else 0F
+            }
+            else {
+                if (mount.expanded) {
+                    view.expandArrow.rotation = 0f
+                    view.expandArrow.animate().setDuration(500).rotation(180F)
+                } else {
+                    view.expandArrow.rotation = 180f
+                    view.expandArrow.animate().setDuration(500).rotation(0F)
+                }
+                mount.animationDone = true
+            }
+
             view.sub_item.visibility = if (mount.expanded) VISIBLE else GONE
             view.mountName.text = mount.name
             view.mountImage.setImageResource(mount.icon)
             view.mountLocation.text = mount.location
-            view.expandArrow.rotation = if (mount.expanded) 180F else 0F
+
             if (mount.droprate != 0.0)
                 view.mountDroprate.text = "~%.1f %%".format(mount.droprate)
             else
@@ -88,9 +104,6 @@ class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: M
             characterRecycler.layoutManager = linearLayoutManager
             adapter = CharacterSubAdapter(CharacterCollection.characters, mount, activity)
             characterRecycler.adapter = adapter
-
-
-            Log.v("MOUNT", "Rotation: " + view.expandArrow.rotation)
 
 
         }

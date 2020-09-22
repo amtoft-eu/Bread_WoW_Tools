@@ -10,6 +10,7 @@ class Mount(
     var icon: Int = R.drawable.mount_swift_white_hawkstrider
 )  : Cloneable, Comparable<Mount>  {
     var expanded: Boolean = false
+    var animationDone = true
     var checkedList: ArrayList<Boolean> = ArrayList()
 
     public override fun clone(): Mount {
@@ -20,5 +21,9 @@ class Mount(
 
     override fun compareTo(other: Mount): Int {
         return (expansion.ordinal * 100000 + id) - (other.expansion.ordinal * 100000 + other.id)
+    }
+
+    override fun toString(): String {
+        return name
     }
 }
