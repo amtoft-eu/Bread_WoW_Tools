@@ -1,5 +1,6 @@
 package eu.amtoft.breadwowtools.mounts
 
+import android.app.Activity
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -95,7 +96,7 @@ object MountCollection {
         mounts.add(Mount(1328, "Xinlao",                          Expansion.BFA,     "Vale of Eternal Blossoms",     3.0,    Reset.DAILY, R.drawable.mount_quilen_gold))
     }
 
-    fun saveMountList(activity: MainActivity){
+    fun saveMountList(activity: Activity){
         Log.v("MOUNTCOLLECTION", "Saving mounts...")
         val mountsToSave = ArrayList<Mount>()
         unknownMounts.forEach{ mount ->
@@ -108,7 +109,7 @@ object MountCollection {
 
     fun getMounts(charPos: Int, fragment: Fragment) {
         Log.v("MOUNT", "In getMounts")
-        val queue = Volley.newRequestQueue(fragment.activity as MainActivity)
+        val queue = Volley.newRequestQueue(fragment.activity)
         CharacterCollection.characters.forEach { character ->
             if (character.isMain) {
                 var url = "https://" +
@@ -129,7 +130,7 @@ object MountCollection {
                             unknownMounts.forEach {
                                 it.checkedList.add(charPos, false)
                             }
-                            saveMountList(fragment.activity as MainActivity)
+                            saveMountList(fragment.requireActivity())
                         }
                     },
                     {
@@ -144,7 +145,7 @@ object MountCollection {
     private fun convertJson(json: String, fragment: Fragment) {
         val gson = Gson()
         val mountContainer = gson.fromJson(json, MountContainer::class.java)
-        if (MountCollection.unknownMounts.size == 0)
+        if (unknownMounts.size == 0)
             initialMountFiltering(mountContainer, fragment)
         else
             updateMounts(mountContainer, fragment)
@@ -152,7 +153,7 @@ object MountCollection {
     }
 
     private fun initialMountFiltering(mountContainer: MountContainer, fragment: Fragment) {
-        MountCollection.mounts.forEach { obtainable ->
+        mounts.forEach { obtainable ->
             var found = false
             mountContainer.mounts.forEach { known ->
                 if (known.mount.id == obtainable.id || (known.mount.id == 286 && obtainable.id == 287) || (known.mount.id == 287 && obtainable.id == 286)) {
@@ -162,28 +163,28 @@ object MountCollection {
             if (!found) {
 
                 var foundInUnknown = false
-                MountCollection.unknownMounts.forEach { unknownMount ->
+                unknownMounts.forEach { unknownMount ->
                     if (unknownMount.id == obtainable.id) {
                         foundInUnknown = true
                     }
                 }
                 if (!foundInUnknown) {
-                    MountCollection.unknownMounts.add(obtainable)
+                    unknownMounts.add(obtainable)
                 }
             }
         }
         Log.v("MOUNT", "setFragmentResult")
         fragment.setFragmentResult("mountUpdate", Bundle())
-        MountCollection.unknownMounts.sort()
-        MountCollection.saveMountList(fragment.activity as MainActivity)
+        unknownMounts.sort()
+        saveMountList(fragment.requireActivity())
     }
 
     private fun updateMounts(mountContainer: MountContainer, fragment: Fragment) {
 
-        MountCollection.mounts.forEach { obtainable ->
+        mounts.forEach { obtainable ->
             var unknown = false
             var mount = Mount()
-            MountCollection.unknownMounts.forEach { unknownMount ->
+            unknownMounts.forEach { unknownMount ->
                 if (obtainable.id == unknownMount.id) {
                     unknown = true
                     mount = unknownMount
@@ -217,7 +218,7 @@ object MountCollection {
         unknownMounts.sort()
         fragment.setFragmentResult("mountUpdate", Bundle())
 
-        saveMountList(fragment.activity as MainActivity)
+        saveMountList(fragment.requireActivity())
     }
 
 }
