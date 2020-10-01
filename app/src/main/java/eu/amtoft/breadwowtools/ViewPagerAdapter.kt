@@ -3,6 +3,8 @@ package eu.amtoft.breadwowtools
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import eu.amtoft.breadwowtools.characters.CharacterFragment
+import eu.amtoft.breadwowtools.mounts.MountFragment
 
 class ViewPagerAdapter(activity: AppCompatActivity, private val itemCount: Int): FragmentStateAdapter(activity){
     override fun getItemCount(): Int {

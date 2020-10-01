@@ -1,4 +1,4 @@
-package eu.amtoft.breadwowtools
+package eu.amtoft.breadwowtools.mounts
 
 import android.os.Bundle
 import android.util.Log
@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,8 +14,11 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
+import eu.amtoft.breadwowtools.AuthKey
+import eu.amtoft.breadwowtools.MainActivity
+import eu.amtoft.breadwowtools.R
 import eu.amtoft.breadwowtools.api.MountContainer
-import java.util.*
+import eu.amtoft.breadwowtools.characters.CharacterCollection
 
 class MountFragment : Fragment() {
 
@@ -83,9 +85,11 @@ class MountFragment : Fragment() {
                     Request.Method.GET, url,
                     { response ->
                         convertJson(response)
-                        if (charPos >= 0)
-                        MountCollection.unknownMounts.forEach {
+                        if (charPos >= 0) {
+                            MountCollection.unknownMounts.forEach {
                                 it.checkedList.add(charPos, false)
+                            }
+                            MountCollection.saveMountList(activity as MainActivity)
                         }
                     },
                     {

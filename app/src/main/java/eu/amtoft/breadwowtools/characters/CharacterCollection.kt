@@ -1,7 +1,8 @@
-package eu.amtoft.breadwowtools
+package eu.amtoft.breadwowtools.characters
 
 import android.content.SharedPreferences
 import com.google.gson.Gson
+import eu.amtoft.breadwowtools.MainActivity
 
 object CharacterCollection {
     var characters: ArrayList<Character> = ArrayList()

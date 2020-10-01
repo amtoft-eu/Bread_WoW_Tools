@@ -1,4 +1,4 @@
-package eu.amtoft.breadwowtools
+package eu.amtoft.breadwowtools.mounts
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -9,6 +9,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import eu.amtoft.breadwowtools.Expansion
+import eu.amtoft.breadwowtools.MainActivity
+import eu.amtoft.breadwowtools.R
+import eu.amtoft.breadwowtools.characters.CharacterCollection
+import eu.amtoft.breadwowtools.characters.CharacterSubAdapter
+import eu.amtoft.breadwowtools.inflate
 import kotlinx.android.synthetic.main.mount_item.view.*
 
 

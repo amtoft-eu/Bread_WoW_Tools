@@ -1,6 +1,5 @@
-package eu.amtoft.breadwowtools
+package eu.amtoft.breadwowtools.characters
 
-import android.app.ActionBar
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
@@ -11,7 +10,6 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
 import android.widget.*
-import android.widget.PopupWindow.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,11 +19,13 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
+import eu.amtoft.breadwowtools.AuthKey
+import eu.amtoft.breadwowtools.Faction
+import eu.amtoft.breadwowtools.MainActivity
+import eu.amtoft.breadwowtools.R
 import eu.amtoft.breadwowtools.api.CharacterInfo
 import eu.amtoft.breadwowtools.api.CharacterMedia
-import eu.amtoft.breadwowtools.api.MountContainer
 import kotlinx.android.synthetic.main.fragment_character.view.*
-import kotlinx.android.synthetic.main.popup_add_char.*
 import kotlinx.android.synthetic.main.popup_add_char.view.*
 
 class CharacterFragment : Fragment() {

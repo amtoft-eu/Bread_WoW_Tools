@@ -1,4 +1,6 @@
-package eu.amtoft.breadwowtools
+package eu.amtoft.breadwowtools.characters
+
+import eu.amtoft.breadwowtools.Faction
 
 class Character : Comparable<Character>{
     var name: String = "Amtoft"

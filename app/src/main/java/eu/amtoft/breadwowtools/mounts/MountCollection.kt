@@ -1,8 +1,12 @@
-package eu.amtoft.breadwowtools
+package eu.amtoft.breadwowtools.mounts
 
 import android.content.SharedPreferences
 import android.util.Log
 import com.google.gson.Gson
+import eu.amtoft.breadwowtools.Expansion
+import eu.amtoft.breadwowtools.MainActivity
+import eu.amtoft.breadwowtools.R
+import eu.amtoft.breadwowtools.Reset
 
 object MountCollection {
     var mounts: ArrayList<Mount> = ArrayList()
@@ -89,7 +93,7 @@ object MountCollection {
     fun saveMountList(activity: MainActivity){
         Log.v("MOUNTCOLLECTION", "Saving mounts...")
         val mountsToSave = ArrayList<Mount>()
-        unknownMounts.forEach{mount ->
+        unknownMounts.forEach{ mount ->
             mountsToSave.add(mount.clone())
         }
         val gson = Gson()

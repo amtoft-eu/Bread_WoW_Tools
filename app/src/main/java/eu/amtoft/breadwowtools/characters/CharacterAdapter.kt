@@ -1,4 +1,4 @@
-package eu.amtoft.breadwowtools
+package eu.amtoft.breadwowtools.characters
 
 import android.util.Log
 import android.view.View
@@ -6,6 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.squareup.picasso.Picasso
+import eu.amtoft.breadwowtools.Faction
+import eu.amtoft.breadwowtools.R
+import eu.amtoft.breadwowtools.inflate
 import kotlinx.android.synthetic.main.character_item.view.*
 
 class CharacterAdapter(private val characters: ArrayList<Character>) :

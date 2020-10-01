@@ -1,4 +1,8 @@
-package eu.amtoft.breadwowtools
+package eu.amtoft.breadwowtools.mounts
+
+import eu.amtoft.breadwowtools.Expansion
+import eu.amtoft.breadwowtools.R
+import eu.amtoft.breadwowtools.Reset
 
 class Mount(
     var id: Int = 0,

@@ -1,4 +1,4 @@
-package eu.amtoft.breadwowtools
+package eu.amtoft.breadwowtools.characters
 
 import android.util.Log
 import android.view.View
@@ -6,7 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.character_item.view.*
+import eu.amtoft.breadwowtools.*
+import eu.amtoft.breadwowtools.mounts.Mount
+import eu.amtoft.breadwowtools.mounts.MountCollection
 import kotlinx.android.synthetic.main.character_item.view.characterBackground
 import kotlinx.android.synthetic.main.character_item.view.characterImage
 import kotlinx.android.synthetic.main.character_item.view.characterName

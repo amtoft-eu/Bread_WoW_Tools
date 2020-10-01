@@ -6,13 +6,13 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
-import com.android.volley.Request
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import eu.amtoft.breadwowtools.api.MountContainer
+import eu.amtoft.breadwowtools.characters.Character
+import eu.amtoft.breadwowtools.characters.CharacterCollection
+import eu.amtoft.breadwowtools.mounts.Mount
+import eu.amtoft.breadwowtools.mounts.MountCollection
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
