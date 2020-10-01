@@ -1,12 +1,17 @@
 package eu.amtoft.breadwowtools.mounts
 
 import android.content.SharedPreferences
+import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
-import eu.amtoft.breadwowtools.Expansion
-import eu.amtoft.breadwowtools.MainActivity
-import eu.amtoft.breadwowtools.R
-import eu.amtoft.breadwowtools.Reset
+import eu.amtoft.breadwowtools.*
+import eu.amtoft.breadwowtools.api.MountContainer
+import eu.amtoft.breadwowtools.characters.CharacterCollection
 
 object MountCollection {
     var mounts: ArrayList<Mount> = ArrayList()
@@ -99,6 +104,120 @@ object MountCollection {
         val gson = Gson()
         val sharedPrefMount: SharedPreferences = activity.getSharedPreferences("MOUNTS", 0)
         sharedPrefMount.edit().putString("MOUNTS", gson.toJson(mountsToSave)).apply()
+    }
+
+    fun getMounts(charPos: Int, fragment: Fragment) {
+        Log.v("MOUNT", "In getMounts")
+        val queue = Volley.newRequestQueue(fragment.activity as MainActivity)
+        CharacterCollection.characters.forEach { character ->
+            if (character.isMain) {
+                var url = "https://" +
+                        character.region +
+                        ".api.blizzard.com/profile/wow/character/" +
+                        character.realm.toLowerCase().replace("-", "").replace(" ", "-").replace("'", "") +
+                        "/" +
+                        character.name.toLowerCase() +
+                        "/collections/mounts?namespace=profile-" +
+                        character.region +
+                        "&locale=en_GB&access_token=" +
+                        AuthKey.token
+                val stringRequest = StringRequest(
+                    Request.Method.GET, url,
+                    { response ->
+                        convertJson(response, fragment)
+                        if (charPos >= 0) {
+                            unknownMounts.forEach {
+                                it.checkedList.add(charPos, false)
+                            }
+                            saveMountList(fragment.activity as MainActivity)
+                        }
+                    },
+                    {
+                        Log.v("MOUNT", "GET didn't work!")
+                    }
+                )
+                queue.add(stringRequest)
+            }
+        }
+    }
+
+    private fun convertJson(json: String, fragment: Fragment) {
+        val gson = Gson()
+        val mountContainer = gson.fromJson(json, MountContainer::class.java)
+        if (MountCollection.unknownMounts.size == 0)
+            initialMountFiltering(mountContainer, fragment)
+        else
+            updateMounts(mountContainer, fragment)
+
+    }
+
+    private fun initialMountFiltering(mountContainer: MountContainer, fragment: Fragment) {
+        MountCollection.mounts.forEach { obtainable ->
+            var found = false
+            mountContainer.mounts.forEach { known ->
+                if (known.mount.id == obtainable.id || (known.mount.id == 286 && obtainable.id == 287) || (known.mount.id == 287 && obtainable.id == 286)) {
+                    found = true
+                }
+            }
+            if (!found) {
+
+                var foundInUnknown = false
+                MountCollection.unknownMounts.forEach { unknownMount ->
+                    if (unknownMount.id == obtainable.id) {
+                        foundInUnknown = true
+                    }
+                }
+                if (!foundInUnknown) {
+                    MountCollection.unknownMounts.add(obtainable)
+                }
+            }
+        }
+        Log.v("MOUNT", "setFragmentResult")
+        fragment.setFragmentResult("mountUpdate", Bundle())
+        MountCollection.unknownMounts.sort()
+        MountCollection.saveMountList(fragment.activity as MainActivity)
+    }
+
+    private fun updateMounts(mountContainer: MountContainer, fragment: Fragment) {
+
+        MountCollection.mounts.forEach { obtainable ->
+            var unknown = false
+            var mount = Mount()
+            MountCollection.unknownMounts.forEach { unknownMount ->
+                if (obtainable.id == unknownMount.id) {
+                    unknown = true
+                    mount = unknownMount
+                    unknownMount.icon = obtainable.icon
+                }
+            }
+            var known = false
+            mountContainer.mounts.forEach { knownMount ->
+                if (obtainable.id == knownMount.mount.id)
+                    known = true
+            }
+
+            if (unknown && known) {
+                var pos = unknownMounts.indexOf(mount)
+                unknownMounts.remove(mount)
+                val bundle = Bundle()
+                bundle.putInt("mountPos", pos)
+                fragment.setFragmentResult("removeMount", bundle)
+
+            }
+            if (!unknown && !known && obtainable.id != 286 && obtainable.id != 287) {
+                CharacterCollection.characters.forEach {
+                    obtainable.checkedList.add(false)
+                }
+                unknownMounts.add(obtainable)
+                val bundle = Bundle()
+                bundle.putInt("mountPos", unknownMounts.size - 1)
+                fragment.setFragmentResult("addMount", bundle)
+            }
+        }
+        unknownMounts.sort()
+        fragment.setFragmentResult("mountUpdate", Bundle())
+
+        saveMountList(fragment.activity as MainActivity)
     }
 
 }
