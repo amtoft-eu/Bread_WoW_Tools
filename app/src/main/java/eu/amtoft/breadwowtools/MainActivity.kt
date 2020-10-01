@@ -21,8 +21,7 @@ class MainActivity : AppCompatActivity() {
     private val PREF_NAME = "THEME"
     private val CHAR_PREF_NAME = "CHARACTERS"
     private val MOUNT_PREF_NAME = "MOUNTS"
-    private val clientId = "5014d622da2c46d2aa3e720cb7e57b2d"
-    private val clientSecret = "cbO3Z7Oly8vNzP56SJuuA5ABZdyKS4Ym"
+    private val AUTH_TOKEN = "TOKEN_DATA"
     lateinit var viewPagerAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +30,14 @@ class MainActivity : AppCompatActivity() {
         val sharedPrefTheme: SharedPreferences = getSharedPreferences(PREF_NAME, PRIVATE_MODE)
         val sharedPrefChar: SharedPreferences = getSharedPreferences(CHAR_PREF_NAME, PRIVATE_MODE)
         val sharedPrefMount: SharedPreferences = getSharedPreferences(MOUNT_PREF_NAME, PRIVATE_MODE)
+        val sharedPrefToken: SharedPreferences = getSharedPreferences(AUTH_TOKEN, PRIVATE_MODE)
+
+        AuthKey.token = sharedPrefToken.getString("TOKEN", "")!!
+        AuthKey.timeOfDeath = sharedPrefToken.getLong("DEATH", 0)
+
+        if (AuthKey.token == "" || AuthKey.timeOfDeath < System.currentTimeMillis()){
+            AuthKey.getToken(this)
+        }
 
         if (sharedPrefTheme.getBoolean(PREF_NAME, false)) {
             setTheme(R.style.HordeTheme)
@@ -96,8 +103,4 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
-
-
-
 }

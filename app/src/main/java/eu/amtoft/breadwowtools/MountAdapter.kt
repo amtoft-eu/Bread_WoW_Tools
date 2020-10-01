@@ -29,14 +29,6 @@ class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: M
             mount.expanded = !mount.expanded
             mount.animationDone = false
             notifyItemChanged(position)
-//            view.sub_item.visibility = if (mount.expanded) VISIBLE else GONE
-//            if (mount.expanded) {
-//                view.expandArrow.animate().setDuration(250).rotation(180F)
-//            } else {
-//                view.expandArrow.animate().setDuration(250).rotation(0F).withEndAction { notifyItemChanged(position) }
-//            }
-
-
 
         }
         holder.bindMount(mount)

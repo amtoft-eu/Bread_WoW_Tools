@@ -172,7 +172,8 @@ class CharacterFragment : Fragment() {
                         character.name.toLowerCase() +
                         "?namespace=profile-" +
                         character.region +
-                        "&locale=en_GB&access_token=USSKcgwq7pTpiYKyKAV2I8Ub2pgIeV4k0r"
+                        "&locale=en_GB&access_token=" +
+                        AuthKey.token
 
                 // Request a string response from the provided URL.
                 val stringRequest = StringRequest(
@@ -265,7 +266,8 @@ class CharacterFragment : Fragment() {
                     CharacterCollection.characters[i].name.toLowerCase() +
                     "/character-media?namespace=profile-" +
                     CharacterCollection.characters[i].region +
-                    "&locale=en_GB&access_token=USSKcgwq7pTpiYKyKAV2I8Ub2pgIeV4k0r"
+                    "&locale=en_GB&access_token=" +
+                    AuthKey.token
 
             // Request a string response from the provided URL.
             val stringRequest = StringRequest(
