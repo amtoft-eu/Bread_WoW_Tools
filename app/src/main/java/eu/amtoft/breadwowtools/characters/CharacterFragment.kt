@@ -182,6 +182,7 @@ class CharacterFragment : Fragment() {
                         val gson = Gson()
                         var apiCharacter = gson.fromJson(response, CharacterInfo::class.java)
                         Log.v("POPUP", apiCharacter.toString())
+                        character.name = apiCharacter.name
                         character.guild = apiCharacter.guild.name
 
                         if (apiCharacter.faction.type == "HORDE")

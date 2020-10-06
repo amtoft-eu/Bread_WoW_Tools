@@ -1,6 +1,7 @@
 package eu.amtoft.breadwowtools.api
 
 class CharacterInfo{
+    var name: String = ""
     var faction: APIFaction = APIFaction()
     var level: Int = 0
     var guild: APIGuild = APIGuild()
