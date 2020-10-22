@@ -243,7 +243,10 @@ class CharacterFragment : Fragment() {
     fun convertJson(json: String): String {
         var gson = Gson()
         var characterMedia = gson.fromJson(json, CharacterMedia::class.java)
-        return characterMedia.avatar_url
+        Log.v("CHAR", "Avatar url: " + characterMedia.assets[0].value + " JSON: " + json)
+
+
+        return characterMedia.assets[0].value
     }
 
     fun getImages(queue: RequestQueue, position: Int = 0) {
@@ -274,6 +277,7 @@ class CharacterFragment : Fragment() {
             val stringRequest = StringRequest(
                 Request.Method.GET, url,
                 { response ->
+                    Log.v("CHAR", "Found avatar url")
                     CharacterCollection.characters[i].imageUrl = convertJson(response)
                     adapter.notifyItemChanged(i)
                     CharacterCollection.saveCharacterList((activity as MainActivity?)!!)
