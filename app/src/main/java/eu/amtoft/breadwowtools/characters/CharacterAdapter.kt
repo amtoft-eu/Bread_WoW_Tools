@@ -2,9 +2,11 @@ package eu.amtoft.breadwowtools.characters
 
 import android.util.Log
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import androidx.recyclerview.widget.RecyclerView.VISIBLE
 import com.squareup.picasso.Picasso
 import eu.amtoft.breadwowtools.Faction
 import eu.amtoft.breadwowtools.R
@@ -46,6 +48,11 @@ class CharacterAdapter(private val characters: ArrayList<Character>) :
             view.characterGuild.text = character.guild
             view.characterRealm.text = character.realm
             view.characterLevel.text = character.level.toString()
+
+            if (character.isMain)
+                view.mainStar.visibility = VISIBLE
+            else
+                view.mainStar.visibility = GONE
 
             when (character.faction) {
                 Faction.ALLIANCE -> {

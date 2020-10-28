@@ -45,6 +45,19 @@
             app:layout_constraintStart_toEndOf="@id/characterImage"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/mainStar"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_margin="5dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintStart_toEndOf="@id/characterName"
+            app:layout_constraintTop_toTopOf="@id/characterName"
+            app:layout_constraintBottom_toBottomOf="@id/characterName"
+            app:srcCompat="@drawable/ic_star"
+            app:tint="@color/gold"
+            android:visibility="gone"/>
+
         <TextView
             android:id="@+id/characterLevel"
             android:layout_width="wrap_content"
