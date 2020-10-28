@@ -40,7 +40,7 @@
             android:shadowRadius="1"
             android:textAlignment="viewStart"
             android:textColor="@color/gold"
-            android:textSize="20sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@id/characterGuild"
             app:layout_constraintStart_toEndOf="@id/characterImage"
             app:layout_constraintTop_toTopOf="parent" />
@@ -56,7 +56,7 @@
             android:shadowRadius="1"
             android:textAlignment="viewEnd"
             android:textColor="@color/gold"
-            android:textSize="20sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@id/characterName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/characterName" />
@@ -73,7 +73,7 @@
             android:shadowRadius="1"
             android:textAlignment="viewStart"
             android:textColor="@color/gold"
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/characterImage"
             app:layout_constraintTop_toBottomOf="@id/characterName" />
@@ -89,7 +89,7 @@
             android:shadowRadius="1"
             android:textAlignment="viewEnd"
             android:textColor="@color/gold"
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@id/characterGuild"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/characterGuild" />

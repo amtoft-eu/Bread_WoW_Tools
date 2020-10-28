@@ -30,7 +30,7 @@ class SettingsFragment : Fragment() {
 
         val rootView = inflater.inflate(R.layout.fragment_settings, container, false)
 
-        val sharedPref: SharedPreferences = activity!!.getSharedPreferences(PREF_NAME, PRIVATE_MODE)
+        val sharedPref: SharedPreferences = requireActivity().getSharedPreferences(PREF_NAME, PRIVATE_MODE)
 
         rootView.themeSwitch.isChecked = sharedPref.getBoolean(PREF_NAME, false)
 
@@ -41,9 +41,9 @@ class SettingsFragment : Fragment() {
                 val editor = sharedPref.edit()
 
                 if (isChecked) {
-                    activity!!.setTheme(R.style.HordeTheme)
+                    requireActivity().setTheme(R.style.HordeTheme)
                 } else {
-                    activity!!.setTheme(R.style.AllianceTheme)
+                    requireActivity().setTheme(R.style.AllianceTheme)
                 }
                 editor.putBoolean(PREF_NAME, isChecked)
                 editor.apply()

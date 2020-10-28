@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Bread WoW Tools</string>
-    <string name="add_char">Add character</string>
+    <string name="add_char">Add Character</string>
     <string name="name">Character name:</string>
     <string name="region">Pick region:</string>
     <string-array name="regions">
-        <item>EU</item>
-        <item>NA</item>
+        <item>Europe</item>
+        <item>North America</item>
     </string-array>
     <string name="realm">Pick realm:</string>
 

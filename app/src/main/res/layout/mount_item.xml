@@ -47,7 +47,7 @@
                 android:shadowDy="1"
                 android:shadowRadius="1"
                 android:textColor="@color/gold"
-                android:textSize="20sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@id/mountLocation"
                 app:layout_constraintStart_toEndOf="@id/mountImage"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -75,7 +75,7 @@
                 android:shadowRadius="1"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/gold"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@id/mountLocation"
                 app:layout_constraintEnd_toStartOf="@id/expandArrow"
                 app:layout_constraintTop_toTopOf="@id/mountLocation" />
@@ -92,7 +92,7 @@
                 android:shadowDy="1"
                 android:shadowRadius="1"
                 android:textColor="@color/gold"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/mountImage"
                 app:layout_constraintTop_toBottomOf="@id/mountName" />

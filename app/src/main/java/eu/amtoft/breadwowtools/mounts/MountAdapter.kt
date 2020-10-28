@@ -80,7 +80,7 @@ class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: M
             view.mountLocation.text = mount.location
 
             if (mount.droprate != 0.0)
-                view.mountDroprate.text = "~%.1f %%".format(mount.droprate)
+                view.mountDroprate.text = "≈ %.1f %%".format(mount.droprate)
             else
                 view.mountDroprate.text = ""
 

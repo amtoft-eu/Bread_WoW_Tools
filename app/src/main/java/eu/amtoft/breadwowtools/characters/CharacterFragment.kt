@@ -160,8 +160,11 @@ class CharacterFragment : Fragment() {
                 var character = Character()
                 character.name = popupWindow.contentView.name.text.toString()
                 character.realm = popupWindow.contentView.spinnerRealm.selectedItem.toString()
-                character.region =
-                    popupWindow.contentView.spinnerRegion.selectedItem.toString().toLowerCase()
+                if (popupWindow.contentView.spinnerRegion.selectedItem.toString().toLowerCase() == "europe")
+                    character.region = "eu"
+                else
+                    character.region = "na"
+
                 // Instantiate the RequestQueue.
                 var url = "https://" +
                         character.region +
