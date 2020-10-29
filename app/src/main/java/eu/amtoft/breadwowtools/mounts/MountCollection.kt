@@ -1,6 +1,7 @@
 package eu.amtoft.breadwowtools.mounts
 
 import android.app.Activity
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -96,14 +97,14 @@ object MountCollection {
         mounts.add(Mount(1328, "Xinlao",                          Expansion.BFA,     "Vale of Eternal Blossoms",     3.0,    Reset.DAILY, R.drawable.mount_quilen_gold))
     }
 
-    fun saveMountList(activity: Activity){
+    fun saveMountList(context: Context){
         Log.v("MOUNTCOLLECTION", "Saving mounts...")
         val mountsToSave = ArrayList<Mount>()
         unknownMounts.forEach{ mount ->
             mountsToSave.add(mount.clone())
         }
         val gson = Gson()
-        val sharedPrefMount: SharedPreferences = activity.getSharedPreferences("MOUNTS", 0)
+        val sharedPrefMount: SharedPreferences = context.getSharedPreferences("MOUNTS", 0)
         sharedPrefMount.edit().putString("MOUNTS", gson.toJson(mountsToSave)).apply()
     }
 

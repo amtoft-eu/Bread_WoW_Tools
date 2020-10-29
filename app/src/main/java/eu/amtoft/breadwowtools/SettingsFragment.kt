@@ -17,7 +17,7 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    private var PRIVATE_MODE = 0
+    private val PRIVATE_MODE = 0
     private val PREF_NAME = "OPTIONS"
 
     override fun onCreateView(
