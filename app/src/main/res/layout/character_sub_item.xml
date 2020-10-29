@@ -27,7 +27,7 @@
         android:shadowDy="1"
         android:shadowRadius="1"
         android:textColor="@color/gold"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/characterImage"
         app:layout_constraintTop_toTopOf="parent" />

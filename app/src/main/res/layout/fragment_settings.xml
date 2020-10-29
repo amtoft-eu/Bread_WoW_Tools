@@ -14,7 +14,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="4dp"
         android:elevation="8dp"
-        app:cardBackgroundColor="#BFBFBF"
+        app:cardBackgroundColor="#636363"
         app:cardCornerRadius="17dp">
 
         <ImageView
@@ -60,21 +60,21 @@
                 android:id="@+id/dividerTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginBottom="38dp"
                 android:src="@drawable/divider"
-                android:tint="@color/gold"
                 android:tintMode="multiply"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintBottom_toBottomOf="@id/helpAlign1"
+                tools:ignore="ContentDescription"
+                app:tint="@color/gold" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/themeSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="176dp"
                 android:layout_marginTop="20dp"
                 android:theme="@style/ElementTheme"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/dividerTheme" />
 
             <ImageView
@@ -98,6 +98,80 @@
                 app:layout_constraintBottom_toBottomOf="@id/themeSwitch"
                 app:layout_constraintEnd_toStartOf="@id/themeSwitch"
                 app:layout_constraintTop_toTopOf="@id/themeSwitch" />
+
+            <View
+                android:id="@+id/helpAlign2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/themeSwitch" />
+
+            <TextView
+                android:id="@+id/regionText"
+                android:layout_width="200dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/background_gradient"
+                android:gravity="center"
+                android:shadowColor="@color/text_shadow"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
+                android:text="Region"
+                android:textColor="@color/gold"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toTopOf="@id/helpAlign2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/dividerRegion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="38dp"
+                android:src="@drawable/divider"
+                android:tintMode="multiply"
+                app:layout_constraintBottom_toBottomOf="@id/helpAlign2"
+                tools:ignore="ContentDescription"
+                app:tint="@color/gold" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/regionSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:theme="@style/ElementTheme"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dividerRegion" />
+
+            <TextView
+                android:id="@+id/na"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="North America"
+                android:textSize="24sp"
+                android:textColor="@color/gold"
+                app:layout_constraintBottom_toBottomOf="@id/regionSwitch"
+                app:layout_constraintStart_toEndOf="@id/regionSwitch"
+                app:layout_constraintTop_toTopOf="@id/regionSwitch"
+                tools:layout_editor_absoluteX="329dp"
+                tools:layout_editor_absoluteY="12dp" />
+
+            <TextView
+                android:id="@+id/eu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="Europe"
+                android:textSize="24sp"
+                android:textColor="@color/gold"
+                app:layout_constraintBottom_toBottomOf="@id/regionSwitch"
+                app:layout_constraintEnd_toStartOf="@id/regionSwitch"
+                app:layout_constraintTop_toTopOf="@id/regionSwitch" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

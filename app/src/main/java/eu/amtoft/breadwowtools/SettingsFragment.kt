@@ -1,15 +1,12 @@
 package eu.amtoft.breadwowtools
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_settings.view.*
-import java.lang.reflect.Method
 
 
 class SettingsFragment : Fragment() {
@@ -21,7 +18,7 @@ class SettingsFragment : Fragment() {
     }
 
     private var PRIVATE_MODE = 0
-    private val PREF_NAME = "THEME"
+    private val PREF_NAME = "OPTIONS"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,11 +29,11 @@ class SettingsFragment : Fragment() {
 
         val sharedPref: SharedPreferences = requireActivity().getSharedPreferences(PREF_NAME, PRIVATE_MODE)
 
-        rootView.themeSwitch.isChecked = sharedPref.getBoolean(PREF_NAME, false)
+        rootView.themeSwitch.isChecked = sharedPref.getBoolean("THEME", false)
 
         rootView.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
 
-            if (sharedPref.getBoolean(PREF_NAME, false) != isChecked) {
+            if (sharedPref.getBoolean("THEME", false) != isChecked) {
 
                 val editor = sharedPref.edit()
 
@@ -45,9 +42,21 @@ class SettingsFragment : Fragment() {
                 } else {
                     requireActivity().setTheme(R.style.AllianceTheme)
                 }
-                editor.putBoolean(PREF_NAME, isChecked)
+                editor.putBoolean("THEME", isChecked)
                 editor.apply()
                 activity?.recreate()
+            }
+        }
+
+        rootView.regionSwitch.isChecked = sharedPref.getBoolean("REGION", false)
+
+        rootView.regionSwitch.setOnCheckedChangeListener { _, isChecked ->
+
+            if (sharedPref.getBoolean("REGION", false) != isChecked) {
+
+                val editor = sharedPref.edit()
+                editor.putBoolean("REGION", isChecked)
+                editor.apply()
             }
         }
 

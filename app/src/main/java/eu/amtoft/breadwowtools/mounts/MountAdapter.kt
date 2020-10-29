@@ -31,7 +31,7 @@ class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: M
     override fun onBindViewHolder(holder: MountHolder, position: Int) {
         val mount = mounts[position]
 
-        holder.itemView.setOnClickListener {view ->
+        holder.itemView.setOnClickListener {
             mount.expanded = !mount.expanded
             mount.animationDone = false
             notifyItemChanged(position)

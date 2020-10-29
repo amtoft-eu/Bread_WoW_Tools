@@ -68,9 +68,13 @@ class CharacterSubAdapter(private val characters: ArrayList<Character>, private 
 
             view.checkbox.isChecked = mount.checkedList[position]
 
-            view.checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
+            view.checkbox.setOnCheckedChangeListener { _, isChecked ->
                 mount.checkedList[position] = isChecked
                 MountCollection.saveMountList(activity)
+            }
+
+            view.setOnClickListener {
+                view.checkbox.isChecked = !view.checkbox.isChecked
             }
 
         }

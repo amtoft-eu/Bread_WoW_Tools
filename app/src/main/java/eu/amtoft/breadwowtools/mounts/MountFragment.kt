@@ -25,18 +25,18 @@ class MountFragment : Fragment() {
             Log.v("MOUNT", "setFragmentResultListener1")
             adapter.notifyDataSetChanged()
         }
-        setFragmentResultListener("getMounts") { a, bundle ->
+        setFragmentResultListener("getMounts") { _, bundle ->
             Log.v("MOUNT", "setFragmentResultListener2")
             MountCollection.getMounts(bundle.getInt("charPos", -1), this)
         }
-        setFragmentResultListener("removeMount") { a, bundle ->
+        setFragmentResultListener("removeMount") { _, bundle ->
             Log.v("MOUNT", "setFragmentResultListener2")
             var mountPos = bundle.getInt("mountPos", -1)
             if (mountPos >= 0){
                 adapter.notifyItemRemoved(mountPos)
             }
         }
-        setFragmentResultListener("addMount") { a, bundle ->
+        setFragmentResultListener("addMount") { _, bundle ->
             Log.v("MOUNT", "setFragmentResultListener2")
             var mountPos = bundle.getInt("mountPos", -1)
             if (mountPos >= 0){

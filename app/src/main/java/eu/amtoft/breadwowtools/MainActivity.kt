@@ -1,6 +1,12 @@
 package eu.amtoft.breadwowtools
 
+import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -18,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private var PRIVATE_MODE = 0
-    private val THEME_PREF_NAME = "THEME"
+    private val OPTION_PREF_NAME = "OPTIONS"
     private val CHAR_PREF_NAME = "CHARACTERS"
     private val MOUNT_PREF_NAME = "MOUNTS"
     private val AUTH_PREF_NAME = "TOKEN_DATA"
@@ -27,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val sharedPrefTheme: SharedPreferences = getSharedPreferences(THEME_PREF_NAME, PRIVATE_MODE)
+        val sharedPrefTheme: SharedPreferences = getSharedPreferences(OPTION_PREF_NAME, PRIVATE_MODE)
         val sharedPrefChar: SharedPreferences = getSharedPreferences(CHAR_PREF_NAME, PRIVATE_MODE)
         val sharedPrefMount: SharedPreferences = getSharedPreferences(MOUNT_PREF_NAME, PRIVATE_MODE)
         val sharedPrefToken: SharedPreferences = getSharedPreferences(AUTH_PREF_NAME, PRIVATE_MODE)
@@ -39,16 +45,26 @@ class MainActivity : AppCompatActivity() {
             AuthKey.getToken(this)
         }
 
-        if (sharedPrefTheme.getBoolean(THEME_PREF_NAME, false)) {
+        if (sharedPrefTheme.getBoolean("THEME", false)) {
             setTheme(R.style.HordeTheme)
         } else {
             setTheme(R.style.AllianceTheme)
             val editor = sharedPrefTheme.edit()
-            editor.putBoolean(THEME_PREF_NAME, false)
+            editor.putBoolean(OPTION_PREF_NAME, false)
             editor.apply()
         }
 
         setContentView(R.layout.activity_main)
+
+        createNotificationChannel()
+
+        val receiverIntent : Intent = Intent(this, Alarm::class.java)
+        val pendingIntent : PendingIntent = PendingIntent.getBroadcast(this, 0, receiverIntent, 0)
+
+        val alarmManager: AlarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+
+        val currentTime = System.currentTimeMillis()
+//        alarmManager.set(AlarmManager.RTC, currentTime  + 10000, pendingIntent)
 
         val charactersJson = sharedPrefChar.getString(CHAR_PREF_NAME, "")
         val gson = Gson()
@@ -112,4 +128,19 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
     }
+
+    fun createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name: CharSequence = "BreadReminderChannel"
+            val description: String = "Channel for Bread notifications"
+            val importance: Int = NotificationManager.IMPORTANCE_DEFAULT
+            val channel: NotificationChannel = NotificationChannel("notifyBread", name, importance)
+            channel.description = description
+
+            val notificationManager : NotificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
+
+    }
+
 }
