@@ -27,14 +27,14 @@
 
             <ImageView
                 android:id="@+id/mountImage"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="64dp"
+                android:layout_height="69dp"
                 android:adjustViewBounds="true"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/mount_swift_white_hawkstrider" />
+                app:srcCompat="@drawable/ability_mount_cockatricemountelite_white" />
 
             <TextView
                 android:id="@+id/mountName"

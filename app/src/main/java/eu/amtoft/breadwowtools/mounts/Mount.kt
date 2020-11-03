@@ -11,7 +11,7 @@ class Mount(
     var location: String = "",
     var droprate: Double = 0.0,
     var reset: Reset = Reset.UNKNOWN,
-    var icon: Int = R.drawable.mount_swift_white_hawkstrider
+    var icon: Int = R.drawable.ability_mount_cockatricemountelite_white
 )  : Cloneable, Comparable<Mount>  {
     var expanded: Boolean = false
     var animationDone = true

@@ -64,7 +64,7 @@ class Alarm : BroadcastReceiver() {
 
     fun notifyDaily(context: Context){
         val builder: NotificationCompat.Builder = NotificationCompat.Builder(context, "notifyBread")
-            .setSmallIcon(R.drawable.mount_gmod)
+            .setSmallIcon(R.drawable.ability_mount_cockatricemountelite_white)
             .setContentTitle("Daily reset!")
             .setContentText("Mounts have been reset")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -75,7 +75,7 @@ class Alarm : BroadcastReceiver() {
 
     fun notifyWeekly(context: Context){
         val builder: NotificationCompat.Builder = NotificationCompat.Builder(context, "notifyBread")
-            .setSmallIcon(R.drawable.mount_gmod)
+            .setSmallIcon(R.drawable.ability_mount_cockatricemountelite_white)
             .setContentTitle("Weekly reset!")
             .setContentText("Mounts have been reset")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
