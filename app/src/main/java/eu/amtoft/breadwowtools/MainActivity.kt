@@ -33,10 +33,10 @@ class MainActivity : AppCompatActivity() {
     private val AUTH_PREF_NAME = "TOKEN_DATA"
     lateinit var viewPagerAdapter: ViewPagerAdapter
 
-    private val sharedPrefOption = getSharedPreferences(OPTION_PREF_NAME, PRIVATE_MODE)
-    private val sharedPrefChar = getSharedPreferences(CHAR_PREF_NAME, PRIVATE_MODE)
-    private val sharedPrefMount = getSharedPreferences(MOUNT_PREF_NAME, PRIVATE_MODE)
-    private val sharedPrefToken = getSharedPreferences(AUTH_PREF_NAME, PRIVATE_MODE)
+    private lateinit var sharedPrefOption : SharedPreferences
+    private lateinit var sharedPrefChar : SharedPreferences
+    private lateinit var sharedPrefMount : SharedPreferences
+    private lateinit var sharedPrefToken : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +49,11 @@ class MainActivity : AppCompatActivity() {
             PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
             PackageManager.DONT_KILL_APP
         )
+
+        sharedPrefOption = getSharedPreferences(OPTION_PREF_NAME, PRIVATE_MODE)
+        sharedPrefChar = getSharedPreferences(CHAR_PREF_NAME, PRIVATE_MODE)
+        sharedPrefMount = getSharedPreferences(MOUNT_PREF_NAME, PRIVATE_MODE)
+        sharedPrefToken = getSharedPreferences(AUTH_PREF_NAME, PRIVATE_MODE)
 
 
         AuthKey.token = sharedPrefToken.getString("TOKEN", "")!!
@@ -186,6 +191,9 @@ class MainActivity : AppCompatActivity() {
                 set(Calendar.MINUTE, 0)
                 set(Calendar.SECOND, 0)
             }
+        if (calendar.timeInMillis < System.currentTimeMillis()){
+            calendar.timeInMillis += 24*60*60*1000
+        }
 
         Log.v("ALARM", "Alarm set at time: " + calendar.toString())
         Log.d("ALARM", "Alarm is not active. Enabling it.")
