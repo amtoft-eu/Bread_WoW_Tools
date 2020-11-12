@@ -4,8 +4,10 @@ import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ComponentName
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -19,8 +21,8 @@ import eu.amtoft.breadwowtools.characters.Character
 import eu.amtoft.breadwowtools.characters.CharacterCollection
 import eu.amtoft.breadwowtools.mounts.Mount
 import eu.amtoft.breadwowtools.mounts.MountCollection
-import io.sentry.Sentry
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,25 +33,36 @@ class MainActivity : AppCompatActivity() {
     private val AUTH_PREF_NAME = "TOKEN_DATA"
     lateinit var viewPagerAdapter: ViewPagerAdapter
 
+    private val sharedPrefOption = getSharedPreferences(OPTION_PREF_NAME, PRIVATE_MODE)
+    private val sharedPrefChar = getSharedPreferences(CHAR_PREF_NAME, PRIVATE_MODE)
+    private val sharedPrefMount = getSharedPreferences(MOUNT_PREF_NAME, PRIVATE_MODE)
+    private val sharedPrefToken = getSharedPreferences(AUTH_PREF_NAME, PRIVATE_MODE)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val sharedPrefTheme: SharedPreferences = getSharedPreferences(OPTION_PREF_NAME, PRIVATE_MODE)
-        val sharedPrefChar: SharedPreferences = getSharedPreferences(CHAR_PREF_NAME, PRIVATE_MODE)
-        val sharedPrefMount: SharedPreferences = getSharedPreferences(MOUNT_PREF_NAME, PRIVATE_MODE)
-        val sharedPrefToken: SharedPreferences = getSharedPreferences(AUTH_PREF_NAME, PRIVATE_MODE)
+
+
+        val receiver = ComponentName(this, BootReciever::class.java)
+
+        this.packageManager.setComponentEnabledSetting(
+            receiver,
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+            PackageManager.DONT_KILL_APP
+        )
+
 
         AuthKey.token = sharedPrefToken.getString("TOKEN", "")!!
         AuthKey.timeOfDeath = sharedPrefToken.getLong("DEATH", 0)
 
-        if (AuthKey.token == "" || AuthKey.timeOfDeath < System.currentTimeMillis()){
+        if (AuthKey.token == "" || AuthKey.timeOfDeath < System.currentTimeMillis()) {
             AuthKey.getToken(this)
         }
 
-        if (sharedPrefTheme.getBoolean("THEME", false)) {
+        if (sharedPrefOption.getBoolean("THEME", false)) {
             setTheme(R.style.HordeTheme)
         } else {
             setTheme(R.style.AllianceTheme)
-            val editor = sharedPrefTheme.edit()
+            val editor = sharedPrefOption.edit()
             editor.putBoolean(OPTION_PREF_NAME, false)
             editor.apply()
         }
@@ -58,13 +71,8 @@ class MainActivity : AppCompatActivity() {
 
         createNotificationChannel()
 
-        val receiverIntent : Intent = Intent(this, Alarm::class.java)
-        val pendingIntent : PendingIntent = PendingIntent.getBroadcast(this, 0, receiverIntent, 0)
+        setupAlarm()
 
-        val alarmManager: AlarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-
-        val currentTime = System.currentTimeMillis()
-//        alarmManager.set(AlarmManager.RTC, currentTime  + 10000, pendingIntent)
 
         val charactersJson = sharedPrefChar.getString(CHAR_PREF_NAME, "")
         val gson = Gson()
@@ -82,7 +90,7 @@ class MainActivity : AppCompatActivity() {
                 gson.fromJson<ArrayList<Mount>>(mountsJson, itemType)
         }
 
-       viewPagerAdapter = ViewPagerAdapter(this, 3)
+        viewPagerAdapter = ViewPagerAdapter(this, 3)
 
         viewPager.adapter = viewPagerAdapter
         viewPager.setCurrentItem(1, false)
@@ -129,7 +137,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
     }
 
-    fun createNotificationChannel(){
+    fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name: CharSequence = "BreadReminderChannel"
             val description: String = "Channel for Bread notifications"
@@ -137,10 +145,59 @@ class MainActivity : AppCompatActivity() {
             val channel: NotificationChannel = NotificationChannel("notifyBread", name, importance)
             channel.description = description
 
-            val notificationManager : NotificationManager = getSystemService(NotificationManager::class.java)
+            val notificationManager: NotificationManager =
+                getSystemService(NotificationManager::class.java)
             notificationManager.createNotificationChannel(channel)
         }
 
+    }
+
+    fun setupAlarm() {
+        val receiverIntent: Intent = Intent(this, Alarm::class.java)
+
+        if (PendingIntent.getBroadcast(
+                this,
+                0,
+                receiverIntent,
+                PendingIntent.FLAG_NO_CREATE
+            ) != null
+        ) {
+            val pendingIntent: PendingIntent =
+                PendingIntent.getBroadcast(this, 0, receiverIntent, PendingIntent.FLAG_NO_CREATE)
+            val alarmManager: AlarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+            alarmManager.cancel(pendingIntent)
+            Log.v("ALARM", "Cancelling alarm")
+        }
+        val tz = TimeZone.getDefault()
+        val now = Date()
+        val offsetFromUtc = tz.getOffset(now.time) / 60000
+        val calendar: Calendar = Calendar.getInstance()
+        if (!sharedPrefOption.getBoolean("REGION", false))
+            calendar.apply {
+                timeInMillis = System.currentTimeMillis()
+                set(Calendar.HOUR_OF_DAY, 7 + (offsetFromUtc / 60))
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+            }
+        else
+            calendar.apply {
+                timeInMillis = System.currentTimeMillis()
+                set(Calendar.HOUR_OF_DAY, 15 + (offsetFromUtc / 60))
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+            }
+
+        Log.v("ALARM", "Alarm set at time: " + calendar.toString())
+        Log.d("ALARM", "Alarm is not active. Enabling it.")
+        val pendingIntent: PendingIntent =
+            PendingIntent.getBroadcast(this, 0, receiverIntent, 0)
+        val alarmManager: AlarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent
+        )
     }
 
 }

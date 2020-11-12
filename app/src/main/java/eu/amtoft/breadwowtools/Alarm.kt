@@ -22,15 +22,18 @@ class Alarm : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
 
         val sharedPrefOption: SharedPreferences = context.getSharedPreferences(OPTION_PREF_NAME, PRIVATE_MODE)
+        Log.v("ALARM", "Notification run")
 
         when (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
             Calendar.TUESDAY -> {
+                Log.v("ALARM", "Daily")
                 if (sharedPrefOption.getBoolean("REGION", false)) {
                     resetDaily(context)
                     if (sharedPrefOption.getBoolean("DAILY", false))
                         notifyDaily(context)
                 }
                 else {
+                    Log.v("ALARM", "Weekly NA")
                     resetWeekly(context)
                     if (sharedPrefOption.getBoolean("WEEKLY", true))
                         notifyWeekly(context)
@@ -38,12 +41,14 @@ class Alarm : BroadcastReceiver() {
                 }
             }
             Calendar.WEDNESDAY -> {
+                Log.v("ALARM", "Daily")
                 if (!sharedPrefOption.getBoolean("REGION", false)) {
                     resetDaily(context)
                     if (sharedPrefOption.getBoolean("DAILY", false))
                         notifyDaily(context)
                 }
                 else {
+                    Log.v("ALARM", "Weekly EU")
                     resetWeekly(context)
                     if (sharedPrefOption.getBoolean("WEEKLY", true))
                         notifyWeekly(context)
@@ -51,6 +56,7 @@ class Alarm : BroadcastReceiver() {
                 }
             }
             else -> {
+                Log.v("ALARM", "Daily")
                 resetDaily(context)
                 if (sharedPrefOption.getBoolean("DAILY", false))
                     notifyDaily(context)
