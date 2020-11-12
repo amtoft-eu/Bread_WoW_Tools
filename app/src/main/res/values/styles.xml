@@ -8,6 +8,7 @@
         <item name="colorMain">@color/allianceBlue</item>
         <item name="colorFocused">@color/allianceFocus</item>
         <item name="colorUnfocused">@color/allianceUnfocus</item>
+        <item name="colorDark">@color/colorPrimaryDark</item>
         <item name="colorMainTP">@color/allianceBlueTP</item>
         <item name="fontFamily">@font/grenze_family</item>
     </style>
@@ -20,6 +21,7 @@
         <item name="colorMain">@color/hordeRed</item>
         <item name="colorFocused">@color/hordeFocus</item>
         <item name="colorUnfocused">@color/hordeUnfocus</item>
+        <item name="colorDark">@color/hordeUnfocus</item>
         <item name="colorMainTP">@color/hordeRedTP</item>
         <item name="fontFamily">@font/grenze_family</item>
     </style>
