@@ -174,6 +174,144 @@
                 app:layout_constraintTop_toTopOf="@id/regionSwitch" />
 
 
+            <View
+                android:id="@+id/helpAlign3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/regionSwitch" />
+
+            <TextView
+                android:id="@+id/notifText"
+                android:layout_width="200dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/background_gradient"
+                android:gravity="center"
+                android:shadowColor="@color/text_shadow"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
+                android:text="Notifications"
+                android:textColor="@color/gold"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toTopOf="@id/helpAlign3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/dividerNotif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="38dp"
+                android:src="@drawable/divider"
+                android:tintMode="multiply"
+                app:layout_constraintBottom_toBottomOf="@id/helpAlign3"
+                tools:ignore="ContentDescription"
+                app:tint="@color/gold" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/dailySwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:theme="@style/ElementTheme"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/weeklySwitch"
+                app:layout_constraintTop_toBottomOf="@id/dividerNotif" />
+
+            <ImageView
+                android:id="@+id/checkDaily"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_check_mark"
+                app:tint="@color/gold"
+                app:layout_constraintBottom_toBottomOf="@id/dailySwitch"
+                app:layout_constraintStart_toEndOf="@id/dailySwitch"
+                app:layout_constraintTop_toTopOf="@id/dailySwitch" />
+
+            <ImageView
+                android:id="@+id/crossDaily"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_cross"
+                android:layout_marginEnd="10dp"
+                app:tint="@color/gold"
+                app:layout_constraintBottom_toBottomOf="@id/dailySwitch"
+                app:layout_constraintEnd_toStartOf="@id/dailySwitch"
+                app:layout_constraintTop_toTopOf="@id/dailySwitch" />
+
+            <TextView
+                android:id="@+id/dailyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:shadowColor="@color/text_shadow"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
+                android:text="Daily reminder"
+                android:textColor="@color/gold"
+                android:textSize="23sp"
+                app:layout_constraintBottom_toTopOf="@id/dailySwitch"
+                app:layout_constraintEnd_toEndOf="@id/dailySwitch"
+                app:layout_constraintStart_toStartOf="@id/dailySwitch" />
+
+
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/weeklySwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:theme="@style/ElementTheme"
+                android:checked="true"
+                app:layout_constraintStart_toEndOf="@id/dailySwitch"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dividerNotif" />
+
+            <ImageView
+                android:id="@+id/checkWeekly"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_check_mark"
+                app:tint="@color/gold"
+                app:layout_constraintBottom_toBottomOf="@id/weeklySwitch"
+                app:layout_constraintStart_toEndOf="@id/weeklySwitch"
+                app:layout_constraintTop_toTopOf="@id/weeklySwitch" />
+
+            <ImageView
+                android:id="@+id/crossWeekly"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_cross"
+                android:layout_marginEnd="10dp"
+                app:tint="@color/gold"
+                app:layout_constraintBottom_toBottomOf="@id/weeklySwitch"
+                app:layout_constraintEnd_toStartOf="@id/weeklySwitch"
+                app:layout_constraintTop_toTopOf="@id/weeklySwitch" />
+
+            <TextView
+                android:id="@+id/weeklyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:shadowColor="@color/text_shadow"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
+                android:text="Weekly reminder"
+                android:textColor="@color/gold"
+                android:textSize="23sp"
+                app:layout_constraintBottom_toTopOf="@id/weeklySwitch"
+                app:layout_constraintEnd_toEndOf="@id/weeklySwitch"
+                app:layout_constraintStart_toStartOf="@id/weeklySwitch" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -60,6 +60,30 @@ class SettingsFragment : Fragment() {
             }
         }
 
+        rootView.dailySwitch.isChecked = sharedPref.getBoolean("DAILY", false)
+
+        rootView.dailySwitch.setOnCheckedChangeListener { _, isChecked ->
+
+            if (sharedPref.getBoolean("DAILY", false) != isChecked) {
+
+                val editor = sharedPref.edit()
+                editor.putBoolean("DAILY", isChecked)
+                editor.apply()
+            }
+        }
+
+        rootView.weeklySwitch.isChecked = sharedPref.getBoolean("WEEKLY", true)
+
+        rootView.weeklySwitch.setOnCheckedChangeListener { _, isChecked ->
+
+            if (sharedPref.getBoolean("WEEKLY", true) != isChecked) {
+
+                val editor = sharedPref.edit()
+                editor.putBoolean("WEEKLY", isChecked)
+                editor.apply()
+            }
+        }
+
         return rootView
     }
 
