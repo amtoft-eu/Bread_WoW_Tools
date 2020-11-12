@@ -19,6 +19,7 @@ import eu.amtoft.breadwowtools.characters.Character
 import eu.amtoft.breadwowtools.characters.CharacterCollection
 import eu.amtoft.breadwowtools.mounts.Mount
 import eu.amtoft.breadwowtools.mounts.MountCollection
+import io.sentry.Sentry
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +33,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val sharedPrefTheme: SharedPreferences = getSharedPreferences(OPTION_PREF_NAME, PRIVATE_MODE)
         val sharedPrefChar: SharedPreferences = getSharedPreferences(CHAR_PREF_NAME, PRIVATE_MODE)
         val sharedPrefMount: SharedPreferences = getSharedPreferences(MOUNT_PREF_NAME, PRIVATE_MODE)

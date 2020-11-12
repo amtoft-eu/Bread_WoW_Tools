@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="eu.amtoft.breadwowtools">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,15 +13,19 @@
         android:theme="@style/AllianceTheme"
         android:windowSoftInputMode="adjustPan">
 
-        <activity  android:name=".MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".Alarm"/>
-        
+        <receiver android:name=".Alarm" />
+
+        <meta-data
+            android:name="io.sentry.dsn"
+            android:value="https://fe494852d8024d00bb0a0ee8099e8677@o475615.ingest.sentry.io/5513769" />
+
     </application>
 
 </manifest>
