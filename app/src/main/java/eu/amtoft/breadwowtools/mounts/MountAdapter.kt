@@ -36,6 +36,7 @@ class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: M
             mount.animationDone = false
             notifyItemChanged(position)
 
+
         }
         holder.bindMount(mount)
     }
@@ -60,10 +61,16 @@ class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: M
         fun bindMount(mount: Mount) {
             this.mount = mount
 
-            if (mount.animationDone){
-                view.expandArrow.rotation = if (mount.expanded) 180F else 0F
+
+            if (mount.checkedList.size < 3) {
+                mount.expanded = true
+                view.expandArrow.visibility = GONE
+            } else {
+                view.expandArrow.visibility = VISIBLE
             }
-            else {
+            if (mount.animationDone) {
+                view.expandArrow.rotation = if (mount.expanded) 180F else 0F
+            } else {
                 if (mount.expanded) {
                     view.expandArrow.rotation = 0f
                     view.expandArrow.animate().setDuration(500).rotation(180F)

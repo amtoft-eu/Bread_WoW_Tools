@@ -289,6 +289,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_cross"
+                android:rotation="90"
                 android:layout_marginEnd="10dp"
                 app:tint="@color/gold"
                 app:layout_constraintBottom_toBottomOf="@id/weeklySwitch"

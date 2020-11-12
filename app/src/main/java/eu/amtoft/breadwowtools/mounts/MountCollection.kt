@@ -130,6 +130,7 @@ object MountCollection {
                         if (charPos >= 0) {
                             unknownMounts.forEach {
                                 it.checkedList.add(charPos, false)
+                                it.expanded = false
                             }
                             saveMountList(fragment.requireActivity())
                         }
