@@ -27,7 +27,7 @@ class Alarm : BroadcastReceiver() {
         when (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
             Calendar.TUESDAY -> {
                 Log.v("ALARM", "Daily")
-                if (sharedPrefOption.getBoolean("REGION", false)) {
+                if (!sharedPrefOption.getBoolean("REGION", false)) {
                     resetDaily(context)
                     if (sharedPrefOption.getBoolean("DAILY", false))
                         notifyDaily(context)
@@ -42,7 +42,7 @@ class Alarm : BroadcastReceiver() {
             }
             Calendar.WEDNESDAY -> {
                 Log.v("ALARM", "Daily")
-                if (!sharedPrefOption.getBoolean("REGION", false)) {
+                if (sharedPrefOption.getBoolean("REGION", false)) {
                     resetDaily(context)
                     if (sharedPrefOption.getBoolean("DAILY", false))
                         notifyDaily(context)
