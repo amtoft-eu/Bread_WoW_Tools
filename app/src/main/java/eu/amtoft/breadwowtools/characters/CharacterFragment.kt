@@ -87,7 +87,7 @@ class CharacterFragment : Fragment() {
 
                 // Slide animation for popup window exit transition
                 val slideOut = Slide()
-                slideOut.slideEdge = Gravity.LEFT
+//                slideOut.slideEdge = Gravity.LEFT
                 popupWindow.exitTransition = slideOut
 
             }

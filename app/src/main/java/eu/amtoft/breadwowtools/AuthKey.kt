@@ -33,9 +33,18 @@ object AuthKey {
                 token = apiToken.access_token
                 timeOfDeath = (System.currentTimeMillis() + (apiToken.expires_in * 1000)) - 60000
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    Log.v("AUTH", "Got new token that expires at: " + LocalDateTime.ofEpochSecond(timeOfDeath / 1000, 0, OffsetDateTime.now().offset))
+                    Log.v("AUTH", "Got new token that expires at: " +
+                            LocalDateTime.ofEpochSecond(
+                                timeOfDeath / 1000,
+                                0,
+                                OffsetDateTime.now().offset)
+                    )
                 }
-                activity.getSharedPreferences("TOKEN_DATA", 0).edit().putString("TOKEN", token).putLong("DEATH", timeOfDeath).apply()
+                activity.getSharedPreferences("TOKEN_DATA", 0)
+                    .edit()
+                    .putString("TOKEN", token)
+                    .putLong("DEATH", timeOfDeath)
+                    .apply()
             },
             Response.ErrorListener {
                 Log.v("AUTH", "POST didn't work! " + it.message)
