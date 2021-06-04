@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#001E3E</color>
     <color name="colorAccent">#7A95BF</color>
     <color name="allianceBlue">#224266</color>
+    <color name="allianceBlueDark">#1D3857</color>
     <color name="allianceBlueTP">#4995EA</color>
     <color name="allianceFocus">#90ABD5</color>
     <color name="allianceUnfocus">#567299</color>
@@ -25,5 +26,7 @@
     <color name="wod">#622500</color>
     <color name="legion">#47710d</color>
     <color name="bfa">#1a283e</color>
-    <color name="sl">#b5b5b8</color>
+    <color name="sl">#858585</color>
+    <color name="startcolor">#ff444444</color>
+    <color name="endcolor">#ff222222</color>
 </resources>

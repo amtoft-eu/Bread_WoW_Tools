@@ -1054,7 +1054,7 @@ object MountCollection {
             if (character.isMain) {
                 var url = "https://" +
                         character.region +
-//                        ".api.blizzard.com/profile/wow/character/" +
+                        ".api.blizzard.com/profile/wow/character/" +
                         character.realm.toLowerCase().replace("-", "").replace(" ", "-").replace("'", "") +
                         "/" +
                         character.name.toLowerCase() +
@@ -1076,6 +1076,7 @@ object MountCollection {
                     },
                     {
                         Log.v("MOUNT", "GET didn't work!")
+                        Log.v("MOUNT", it.stackTraceToString())
                     }
                 )
                 queue.add(stringRequest)

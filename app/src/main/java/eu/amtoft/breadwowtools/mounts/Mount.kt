@@ -15,6 +15,8 @@ class Mount(
 )  : Cloneable, Comparable<Mount>  {
     var expanded: Boolean = false
     var animationDone = true
+    var paddingVertical = 0
+    var paddingHorizontal = 0
     var checkedList: ArrayList<Boolean> = ArrayList()
 
     public override fun clone(): Mount {

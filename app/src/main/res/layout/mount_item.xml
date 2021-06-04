@@ -19,11 +19,20 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/mountBackground"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:background="@drawable/texture_gradient_01_vanilla">
+            android:layout_height="64dp">
 
+            <ImageView
+                android:id="@+id/mountBackground"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:adjustViewBounds="true"
+                android:src="@drawable/texture_gradient_01_vanilla"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/mountImage"
@@ -56,12 +65,12 @@
                 android:id="@+id/expandArrow"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:adjustViewBounds="true"
                 android:layout_marginEnd="17dp"
-                app:srcCompat="@drawable/ic_expand_button"
+                android:adjustViewBounds="true"
                 app:layout_constraintBottom_toBottomOf="@id/mountLocation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/mountLocation"
+                app:srcCompat="@drawable/ic_expand_button"
                 app:tint="@color/gold" />
 
             <TextView

@@ -92,16 +92,16 @@ class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: M
                 view.mountDroprate.text = ""
 
             when (mount.expansion) {
-                Expansion.VANILLA -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_01_vanilla)
-                Expansion.TBC -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_02_tbc)
-                Expansion.WOTLK -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_03_wotlk)
-                Expansion.CATA -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_04_cata)
-                Expansion.MOP -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_05_mop)
-                Expansion.WOD -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_06_wod)
-                Expansion.LEGION -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_07_legion)
-                Expansion.BFA -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_08_bfa)
-                Expansion.SL -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_09_sl)
-                else -> view.mountBackground.setBackgroundResource(R.drawable.texture_gradient_01_vanilla)
+                Expansion.VANILLA -> view.mountBackground.setImageResource(R.drawable.texture_gradient_01_vanilla)
+                Expansion.TBC -> view.mountBackground.setImageResource(R.drawable.texture_gradient_02_tbc)
+                Expansion.WOTLK -> view.mountBackground.setImageResource(R.drawable.texture_gradient_03_wotlk)
+                Expansion.CATA -> view.mountBackground.setImageResource(R.drawable.texture_gradient_04_cata)
+                Expansion.MOP -> view.mountBackground.setImageResource(R.drawable.texture_gradient_05_mop)
+                Expansion.WOD -> view.mountBackground.setImageResource(R.drawable.texture_gradient_06_wod)
+                Expansion.LEGION -> view.mountBackground.setImageResource(R.drawable.texture_gradient_07_legion)
+                Expansion.BFA -> view.mountBackground.setImageResource(R.drawable.texture_gradient_08_bfa)
+                Expansion.SL -> view.mountBackground.setImageResource(R.drawable.texture_gradient_09_sl)
+                else -> view.mountBackground.setImageResource(R.drawable.texture_gradient_01_vanilla)
             }
 
             val characterRecycler = view.findViewById(R.id.sub_item) as RecyclerView
@@ -110,7 +110,16 @@ class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: M
             adapter = CharacterSubAdapter(CharacterCollection.characters, mount, activity)
             characterRecycler.adapter = adapter
 
-
+            if (mount.paddingVertical == 0 && mount.paddingHorizontal == 0){
+                mount.paddingVertical = (1400 * (0.5 - Math.random())).toInt()
+                mount.paddingHorizontal = (500 * (Math.random())).toInt()
+            }
+            if (mount.paddingVertical < 0){
+               view.mountBackground.setPadding(mount.paddingHorizontal, -mount.paddingVertical,0,0)
+            }
+            else{
+                view.mountBackground.setPadding(0,0,mount.paddingHorizontal, mount.paddingVertical)
+            }
         }
 
     }
