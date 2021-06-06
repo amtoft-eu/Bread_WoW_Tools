@@ -51,7 +51,7 @@ class CharacterFragment : Fragment() {
 
         characterRecycler.layoutManager = linearLayoutManager
 
-        adapter = CharacterAdapter(CharacterCollection.characters)
+        adapter = CharacterAdapter(CharacterCollection.characters, activity as MainActivity)
         characterRecycler.adapter = adapter
         val queue = Volley.newRequestQueue(context)
         getImages(queue)
@@ -87,7 +87,7 @@ class CharacterFragment : Fragment() {
 
                 // Slide animation for popup window exit transition
                 val slideOut = Slide()
-//                slideOut.slideEdge = Gravity.LEFT
+                slideOut.slideEdge = Gravity.LEFT
                 popupWindow.exitTransition = slideOut
 
             }

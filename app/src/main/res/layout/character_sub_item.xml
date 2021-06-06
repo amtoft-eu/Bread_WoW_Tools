@@ -3,8 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="46dp"
-    android:id="@+id/characterBackground"
-    android:background="@drawable/texture_gradient_horde">
+    >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/texture_gradient_horde"
+        android:id="@+id/characterBackground"
+        android:scaleType="center"
+        android:adjustViewBounds="true"
+        />
 
     <ImageView
         android:id="@+id/characterImage"

@@ -11,11 +11,17 @@
     app:cardCornerRadius="17dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/characterBackground"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:background="@drawable/texture_gradient_01_vanilla">
+        >
 
+        <ImageView
+            android:id="@+id/characterBackground"
+            android:layout_width="match_parent"
+            android:scaleType="center"
+            android:adjustViewBounds="true"
+            android:layout_height="match_parent"
+            android:src="@drawable/texture_gradient_02_tbc"/>
 
         <ImageView
             android:id="@+id/characterImage"

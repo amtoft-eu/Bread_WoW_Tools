@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Bread WoW Tools</string>
     <string name="add_char">Add Character</string>
+    <string name="remove_char">Remove Character</string>
+    <string name="remove_this_char">Do you want to remove %s</string>
     <string name="name">Character name:</string>
     <string name="region">Pick region:</string>
     <string-array name="regions">

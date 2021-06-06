@@ -22,26 +22,29 @@ class MountFragment : Fragment() {
 
         // Use the Kotlin extension in the fragment-ktx artifact
         setFragmentResultListener("mountUpdate") { _, _ ->
-            Log.v("MOUNT", "setFragmentResultListener1")
+            Log.v("MOUNT", "Handling mountupdate")
             adapter.notifyDataSetChanged()
         }
         setFragmentResultListener("getMounts") { _, bundle ->
-            Log.v("MOUNT", "setFragmentResultListener2")
+            Log.v("MOUNT", "Handling get mount request")
             MountCollection.getMounts(bundle.getInt("charPos", -1), this)
         }
         setFragmentResultListener("removeMount") { _, bundle ->
-            Log.v("MOUNT", "setFragmentResultListener2")
+            Log.v("MOUNT", "Handling mount removed call")
             var mountPos = bundle.getInt("mountPos", -1)
             if (mountPos >= 0){
                 adapter.notifyItemRemoved(mountPos)
             }
         }
         setFragmentResultListener("addMount") { _, bundle ->
-            Log.v("MOUNT", "setFragmentResultListener2")
+            Log.v("MOUNT", "Handling mount added call")
             var mountPos = bundle.getInt("mountPos", -1)
             if (mountPos >= 0){
                 adapter.notifyItemInserted(mountPos)
             }
+        }
+        setFragmentResultListener("removeChar") {_, bundle ->
+            Log.v("MOUNT", "Handling Char removed call")
         }
 
     }

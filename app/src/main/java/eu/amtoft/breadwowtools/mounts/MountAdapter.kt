@@ -6,15 +6,14 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import eu.amtoft.breadwowtools.Expansion
-import eu.amtoft.breadwowtools.MainActivity
-import eu.amtoft.breadwowtools.R
+import androidx.recyclerview.widget.RecyclerView.*
+import eu.amtoft.breadwowtools.*
 import eu.amtoft.breadwowtools.characters.CharacterCollection
 import eu.amtoft.breadwowtools.characters.CharacterSubAdapter
-import eu.amtoft.breadwowtools.inflate
 import kotlinx.android.synthetic.main.mount_item.view.*
 
 
@@ -109,6 +108,8 @@ class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: M
             characterRecycler.layoutManager = linearLayoutManager
             adapter = CharacterSubAdapter(CharacterCollection.characters, mount, activity)
             characterRecycler.adapter = adapter
+            val itemDecoration = MyDividerItemDecorator(ContextCompat.getDrawable(activity, R.drawable.recycle_divider))
+            characterRecycler.addItemDecoration(itemDecoration)
 
             if (mount.paddingVertical == 0 && mount.paddingHorizontal == 0){
                 mount.paddingVertical = (1400 * (0.5 - Math.random())).toInt()

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
+    android:elevation="15dp"
+    app:cardCornerRadius="17dp"
+    app:cardElevation="15dp"
+    app:cardBackgroundColor="?attr/colorMain">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remove_char"
+            android:textColor="@color/gold"
+            android:textSize="30sp"
+            android:layout_marginHorizontal="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="12dp" />
+
+        <TextView
+            android:id="@+id/confirmRemoveText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/gold"
+            android:textSize="26sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="22dp"/>
+
+        <Button
+            android:id="@+id/confirmRemove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/confirmRemoveText"
+            app:layout_constraintEnd_toStartOf="@id/cancelRemove"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textAllCaps="false"
+            android:layout_marginBottom="22dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_light"/>
+
+        <Button
+            android:id="@+id/cancelRemove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/confirmRemoveText"
+            app:layout_constraintStart_toEndOf="@+id/confirmRemove"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textAllCaps="false"
+            android:layout_marginBottom="22dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_light" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

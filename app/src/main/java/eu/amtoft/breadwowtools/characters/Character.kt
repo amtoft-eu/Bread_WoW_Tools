@@ -11,6 +11,8 @@ class Character : Comparable<Character>{
     var faction: Faction = Faction.UNKNOWN
     var imageUrl: String = ""
     var isMain: Boolean = false
+    var paddingVertical = 0
+    var paddingHorizontal = 0
 
     override fun compareTo(other: Character): Int {
         return name.compareTo(other.name)

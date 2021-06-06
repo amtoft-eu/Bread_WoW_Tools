@@ -48,7 +48,7 @@ class CharacterSubAdapter(private val characters: ArrayList<Character>, private 
 
             when (character.faction) {
                 Faction.ALLIANCE -> {
-                    view.characterBackground.setBackgroundResource(R.drawable.texture_gradient_alliance)
+                    view.characterBackground.setImageResource(R.drawable.texture_gradient_alliance)
                     if (character.imageUrl != "")
                         Picasso.get().load(character.imageUrl)
                             .placeholder(R.drawable.alliance_fallback).into(view.characterImage)
@@ -56,14 +56,14 @@ class CharacterSubAdapter(private val characters: ArrayList<Character>, private 
                         Picasso.get().load(R.drawable.alliance_fallback).into(view.characterImage)
                 }
                 Faction.HORDE -> {
-                    view.characterBackground.setBackgroundResource(R.drawable.texture_gradient_horde)
+                    view.characterBackground.setImageResource(R.drawable.texture_gradient_horde)
                     if (character.imageUrl != "")
                         Picasso.get().load(character.imageUrl)
                             .placeholder(R.drawable.horde_fallback).into(view.characterImage)
                     else
                         Picasso.get().load(R.drawable.horde_fallback).into(view.characterImage)
                 }
-                else -> view.characterBackground.setBackgroundResource(R.drawable.texture2)
+                else -> view.characterBackground.setImageResource(R.drawable.texture2)
             }
 
             view.checkbox.isChecked = mount.checkedList[position]
@@ -71,6 +71,12 @@ class CharacterSubAdapter(private val characters: ArrayList<Character>, private 
             view.checkbox.setOnCheckedChangeListener { _, isChecked ->
                 mount.checkedList[position] = isChecked
                 MountCollection.saveMountList(activity)
+            }
+            if (character.paddingVertical < 0){
+                view.characterBackground.setPadding(character.paddingHorizontal, -character.paddingVertical,0,0)
+            }
+            else {
+                view.characterBackground.setPadding(0, 0, character.paddingHorizontal, character.paddingVertical)
             }
 
             view.setOnClickListener {
