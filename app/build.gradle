@@ -10,8 +10,8 @@ android {
         applicationId "eu.amtoft.breadwowtools"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 4
-        versionName "0.2 Beta"
+        versionCode 6
+        versionName "0.4 Beta"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
