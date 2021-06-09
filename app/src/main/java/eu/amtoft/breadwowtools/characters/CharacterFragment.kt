@@ -169,7 +169,9 @@ class CharacterFragment : Fragment() {
                 var url = "https://" +
                         character.region +
                         ".api.blizzard.com/profile/wow/character/" +
-                        character.realm.toLowerCase().replace("-", "").replace(" ", "-")
+                        character.realm.toLowerCase()
+                            .replace("-", "")
+                            .replace(" ", "-")
                             .replace("'", "") +
                         "/" +
                         character.name.toLowerCase() +

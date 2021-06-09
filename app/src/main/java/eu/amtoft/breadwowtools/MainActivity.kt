@@ -33,16 +33,16 @@ class MainActivity : AppCompatActivity() {
     private val AUTH_PREF_NAME = "TOKEN_DATA"
     lateinit var viewPagerAdapter: ViewPagerAdapter
 
-    private lateinit var sharedPrefOption : SharedPreferences
-    private lateinit var sharedPrefChar : SharedPreferences
-    private lateinit var sharedPrefMount : SharedPreferences
-    private lateinit var sharedPrefToken : SharedPreferences
+    private lateinit var sharedPrefOption: SharedPreferences
+    private lateinit var sharedPrefChar: SharedPreferences
+    private lateinit var sharedPrefMount: SharedPreferences
+    private lateinit var sharedPrefToken: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
-        val receiver = ComponentName(this, BootReciever::class.java)
+        val receiver = ComponentName(this, BootReceiver::class.java)
 
         this.packageManager.setComponentEnabledSetting(
             receiver,
@@ -191,8 +191,8 @@ class MainActivity : AppCompatActivity() {
                 set(Calendar.MINUTE, 0)
                 set(Calendar.SECOND, 0)
             }
-        if (calendar.timeInMillis < System.currentTimeMillis()){
-            calendar.timeInMillis += 24*60*60*1000
+        if (calendar.timeInMillis < System.currentTimeMillis()) {
+            calendar.timeInMillis += 24 * 60 * 60 * 1000
         }
 
         Log.v("ALARM", "Alarm set at time: " + calendar.toString())

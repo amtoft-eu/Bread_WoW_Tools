@@ -111,15 +111,14 @@ class MountAdapter(private val mounts: ArrayList<Mount>, private val activity: M
             val itemDecoration = MyDividerItemDecorator(ContextCompat.getDrawable(activity, R.drawable.recycle_divider))
             characterRecycler.addItemDecoration(itemDecoration)
 
-            if (mount.paddingVertical == 0 && mount.paddingHorizontal == 0){
+            if (mount.paddingVertical == 0 && mount.paddingHorizontal == 0) {
                 mount.paddingVertical = (1400 * (0.5 - Math.random())).toInt()
                 mount.paddingHorizontal = (500 * (Math.random())).toInt()
             }
-            if (mount.paddingVertical < 0){
-               view.mountBackground.setPadding(mount.paddingHorizontal, -mount.paddingVertical,0,0)
-            }
-            else{
-                view.mountBackground.setPadding(0,0,mount.paddingHorizontal, mount.paddingVertical)
+            if (mount.paddingVertical < 0) {
+                view.mountBackground.setPadding(mount.paddingHorizontal, -mount.paddingVertical, 0, 0)
+            } else {
+                view.mountBackground.setPadding(0, 0, mount.paddingHorizontal, mount.paddingVertical)
             }
         }
 

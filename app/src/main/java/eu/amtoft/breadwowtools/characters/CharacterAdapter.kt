@@ -40,7 +40,7 @@ class CharacterAdapter(private val characters: ArrayList<Character>, private val
         val item = characters[position]
         holder.bindCharacter(item)
 
-        holder.itemView.setOnLongClickListener{
+        holder.itemView.setOnLongClickListener {
             Log.d("CHARACTER", "Long click")
             // Initialize a new layout inflater instance
             val inflater: LayoutInflater =
@@ -90,8 +90,8 @@ class CharacterAdapter(private val characters: ArrayList<Character>, private val
             popupWindow.contentView.confirmRemove.setOnClickListener {
 
                 CharacterCollection.characters.removeAt(position)
-                if (item.isMain){
-                    if (CharacterCollection.characters.isNotEmpty()){
+                if (item.isMain) {
+                    if (CharacterCollection.characters.isNotEmpty()) {
                         CharacterCollection.characters[0].isMain = true
                         notifyDataSetChanged()
                     }
@@ -136,7 +136,7 @@ class CharacterAdapter(private val characters: ArrayList<Character>, private val
             else
                 view.mainStar.visibility = GONE
 
-            if (character.paddingVertical == 0 && character.paddingHorizontal == 0){
+            if (character.paddingVertical == 0 && character.paddingHorizontal == 0) {
                 character.paddingVertical = (1400 * (0.5 - Math.random())).toInt()
                 character.paddingHorizontal = (500 * (Math.random())).toInt()
             }
@@ -161,11 +161,20 @@ class CharacterAdapter(private val characters: ArrayList<Character>, private val
                 else -> view.characterBackground.setBackgroundResource(R.drawable.texture2)
             }
 
-            if (character.paddingVertical < 0){
-                view.characterBackground.setPadding(character.paddingHorizontal, -character.paddingVertical,0,0)
-            }
-            else {
-                view.characterBackground.setPadding(0, 0, character.paddingHorizontal, character.paddingVertical)
+            if (character.paddingVertical < 0) {
+                view.characterBackground.setPadding(
+                    character.paddingHorizontal,
+                    -character.paddingVertical,
+                    0,
+                    0
+                )
+            } else {
+                view.characterBackground.setPadding(
+                    0,
+                    0,
+                    character.paddingHorizontal,
+                    character.paddingVertical
+                )
             }
         }
 

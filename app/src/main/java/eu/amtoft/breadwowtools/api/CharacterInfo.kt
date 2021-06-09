@@ -1,16 +1,16 @@
 package eu.amtoft.breadwowtools.api
 
-class CharacterInfo{
+class CharacterInfo {
     var name: String = ""
     var faction: APIFaction = APIFaction()
     var level: Int = 0
     var guild: APIGuild = APIGuild()
 
-    inner class APIFaction{
+    inner class APIFaction {
         var type: String = ""
     }
 
-    inner class APIGuild{
+    inner class APIGuild {
         var name: String = ""
     }
 }

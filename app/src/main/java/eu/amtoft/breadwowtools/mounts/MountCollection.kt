@@ -1055,7 +1055,10 @@ object MountCollection {
                 var url = "https://" +
                         character.region +
                         ".api.blizzard.com/profile/wow/character/" +
-                        character.realm.toLowerCase().replace("-", "").replace(" ", "-").replace("'", "") +
+                        character.realm.toLowerCase()
+                            .replace("-", "")
+                            .replace(" ", "-")
+                            .replace("'", "") +
                         "/" +
                         character.name.toLowerCase() +
                         "/collections/mounts?namespace=profile-" +
@@ -1098,7 +1101,10 @@ object MountCollection {
         mounts.forEach { obtainable ->
             var found = false
             mountContainer.mounts.forEach { known ->
-                if (known.mount.id == obtainable.id || (known.mount.id == 286 && obtainable.id == 287) || (known.mount.id == 287 && obtainable.id == 286)) {
+                if (known.mount.id == obtainable.id ||
+                    (known.mount.id == 286 && obtainable.id == 287) ||
+                    (known.mount.id == 287 && obtainable.id == 286)
+                ) {
                     found = true
                 }
             }

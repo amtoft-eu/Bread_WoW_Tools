@@ -31,8 +31,7 @@ class Alarm : BroadcastReceiver() {
                     resetDaily(context)
                     if (sharedPrefOption.getBoolean("DAILY", false))
                         notifyDaily(context)
-                }
-                else {
+                } else {
                     Log.v("ALARM", "Weekly NA")
                     resetWeekly(context)
                     if (sharedPrefOption.getBoolean("WEEKLY", true))
@@ -46,8 +45,7 @@ class Alarm : BroadcastReceiver() {
                     resetDaily(context)
                     if (sharedPrefOption.getBoolean("DAILY", false))
                         notifyDaily(context)
-                }
-                else {
+                } else {
                     Log.v("ALARM", "Weekly EU")
                     resetWeekly(context)
                     if (sharedPrefOption.getBoolean("WEEKLY", true))
@@ -64,33 +62,32 @@ class Alarm : BroadcastReceiver() {
         }
 
 
-
     }
 
 
-    fun notifyDaily(context: Context){
+    fun notifyDaily(context: Context) {
         val builder: NotificationCompat.Builder = NotificationCompat.Builder(context, "notifyBread")
             .setSmallIcon(R.drawable.ic_happy_breadtp)
             .setContentTitle("Daily reset!")
             .setContentText("Mounts have been reset")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
-        val notificationManager : NotificationManagerCompat = NotificationManagerCompat.from(context)
+        val notificationManager: NotificationManagerCompat = NotificationManagerCompat.from(context)
         notificationManager.notify(200, builder.build())
     }
 
-    fun notifyWeekly(context: Context){
+    fun notifyWeekly(context: Context) {
         val builder: NotificationCompat.Builder = NotificationCompat.Builder(context, "notifyBread")
             .setSmallIcon(R.drawable.ic_happy_breadtp)
             .setContentTitle("Weekly reset!")
             .setContentText("Mounts have been reset")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
-        val notificationManager : NotificationManagerCompat = NotificationManagerCompat.from(context)
+        val notificationManager: NotificationManagerCompat = NotificationManagerCompat.from(context)
         notificationManager.notify(200, builder.build())
     }
 
-    fun resetDaily(context: Context){
+    fun resetDaily(context: Context) {
         val sharedPrefMount: SharedPreferences = context.getSharedPreferences(MOUNT_PREF_NAME, PRIVATE_MODE)
         val mountsJson = sharedPrefMount.getString(MOUNT_PREF_NAME, "")
         val gson = Gson()
@@ -102,7 +99,7 @@ class Alarm : BroadcastReceiver() {
         }
         MountCollection.unknownMounts.forEach { mount ->
             if (mount.reset == Reset.DAILY)
-                for (i in 0 until mount.checkedList.size){
+                for (i in 0 until mount.checkedList.size) {
                     mount.checkedList[i] = false
                 }
 
@@ -110,7 +107,7 @@ class Alarm : BroadcastReceiver() {
         MountCollection.saveMountList(context)
     }
 
-    fun resetWeekly(context: Context){
+    fun resetWeekly(context: Context) {
         val sharedPrefMount: SharedPreferences = context.getSharedPreferences(MOUNT_PREF_NAME, PRIVATE_MODE)
         val mountsJson = sharedPrefMount.getString(MOUNT_PREF_NAME, "")
         val gson = Gson()
@@ -121,7 +118,7 @@ class Alarm : BroadcastReceiver() {
                 gson.fromJson<ArrayList<Mount>>(mountsJson, itemType)
         }
         MountCollection.unknownMounts.forEach { mount ->
-            for (i in 0 until mount.checkedList.size){
+            for (i in 0 until mount.checkedList.size) {
                 mount.checkedList[i] = false
             }
 

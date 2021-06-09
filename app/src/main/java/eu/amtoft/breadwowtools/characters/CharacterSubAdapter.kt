@@ -14,7 +14,11 @@ import kotlinx.android.synthetic.main.character_item.view.characterImage
 import kotlinx.android.synthetic.main.character_item.view.characterName
 import kotlinx.android.synthetic.main.character_sub_item.view.*
 
-class CharacterSubAdapter(private val characters: ArrayList<Character>, private val mount: Mount, private val activity: MainActivity) : Adapter<CharacterSubAdapter.CharacterHolder>() {
+class CharacterSubAdapter(
+    private val characters: ArrayList<Character>,
+    private val mount: Mount,
+    private val activity: MainActivity
+) : Adapter<CharacterSubAdapter.CharacterHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterHolder {
@@ -72,11 +76,20 @@ class CharacterSubAdapter(private val characters: ArrayList<Character>, private 
                 mount.checkedList[position] = isChecked
                 MountCollection.saveMountList(activity)
             }
-            if (character.paddingVertical < 0){
-                view.characterBackground.setPadding(character.paddingHorizontal, -character.paddingVertical,0,0)
-            }
-            else {
-                view.characterBackground.setPadding(0, 0, character.paddingHorizontal, character.paddingVertical)
+            if (character.paddingVertical < 0) {
+                view.characterBackground.setPadding(
+                    character.paddingHorizontal,
+                    -character.paddingVertical,
+                    0,
+                    0
+                )
+            } else {
+                view.characterBackground.setPadding(
+                    0,
+                    0,
+                    character.paddingHorizontal,
+                    character.paddingVertical
+                )
             }
 
             view.setOnClickListener {

@@ -32,18 +32,18 @@ class MountFragment : Fragment() {
         setFragmentResultListener("removeMount") { _, bundle ->
             Log.v("MOUNT", "Handling mount removed call")
             var mountPos = bundle.getInt("mountPos", -1)
-            if (mountPos >= 0){
+            if (mountPos >= 0) {
                 adapter.notifyItemRemoved(mountPos)
             }
         }
         setFragmentResultListener("addMount") { _, bundle ->
             Log.v("MOUNT", "Handling mount added call")
             var mountPos = bundle.getInt("mountPos", -1)
-            if (mountPos >= 0){
+            if (mountPos >= 0) {
                 adapter.notifyItemInserted(mountPos)
             }
         }
-        setFragmentResultListener("removeChar") {_, bundle ->
+        setFragmentResultListener("removeChar") { _, bundle ->
             Log.v("MOUNT", "Handling Char removed call")
         }
 

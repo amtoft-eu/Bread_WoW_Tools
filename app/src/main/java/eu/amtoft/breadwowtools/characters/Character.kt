@@ -2,7 +2,7 @@ package eu.amtoft.breadwowtools.characters
 
 import eu.amtoft.breadwowtools.Faction
 
-class Character : Comparable<Character>{
+class Character : Comparable<Character> {
     var name: String = "Amtoft"
     var level: Int = 60
     var guild: String = "Bread"
